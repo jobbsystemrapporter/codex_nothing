@@ -47,8 +47,8 @@ export function ScheduleCalendarCard({
         <div>
           <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>{month}</Label>
           <div className="mt-4 grid grid-cols-7 gap-y-2 text-center">
-            {weekDays.map((day) => (
-              <div className={`text-[13px] leading-none ${mutedTone}`} key={day}>
+            {weekDays.map((day, index) => (
+              <div className={`text-[13px] leading-none ${mutedTone}`} key={`${day}-${index}`}>
                 {day}
               </div>
             ))}

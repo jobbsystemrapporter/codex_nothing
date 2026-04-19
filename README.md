@@ -2,61 +2,62 @@
 
 Universal, evidence-based Nothing-inspired design library for React + TypeScript projects.
 
-This repo is made for Codex-driven UI work: tokens, primitives, widgets, and a live playground in one reusable package.
+[![Deploy Playground to GitHub Pages](https://github.com/jobbsystemrapporter/codex_nothing/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/jobbsystemrapporter/codex_nothing/actions/workflows/deploy-pages.yml)
+[![Live Playground](https://img.shields.io/badge/Live%20Preview-GitHub%20Pages-black)](https://jobbsystemrapporter.github.io/codex_nothing/)
 
-## What is included
-- `src/design/evidence.md` — evidence and interpretation boundaries
-- `src/design/rules.md` — visual and implementation rules
-- `src/design/tokens/*` — colors, spacing, radius, typography, motion, shadows
-- `src/design/primitives/*` — reusable UI building blocks
-- `src/design/widgets/*` — composable widget-level components
-- `src/pages/NothingPlaygroundPage.tsx` — showcase / validation page
-- `AGENTS.md` + `rules.md` — Codex directives for consistent output
+This repository is built for **Codex-first workflows**: strong rules, reusable primitives, modular widgets, and a complete playground for visual validation.
+
+## Live preview
+- GitHub Pages: https://jobbsystemrapporter.github.io/codex_nothing/
+
+## Screenshots
+### Playground overview (top section)
+![Playground top](docs/screenshots/playground-top-light.png)
+
+### Full playground (desktop)
+![Playground full desktop](docs/screenshots/playground-full-light.png)
+
+### Full playground (mobile)
+![Playground full mobile](docs/screenshots/playground-mobile-light.png)
+
+## Repository structure
+- `src/design/evidence.md` — evidence boundaries and interpretation policy
+- `src/design/rules.md` — design and implementation rules
+- `src/design/tokens/*` — color, spacing, radius, type, motion, shadows
+- `src/design/primitives/*` — low-level reusable UI building blocks
+- `src/design/widgets/*` — modular system widgets
+- `src/pages/NothingPlaygroundPage.tsx` — showcase and visual QA surface
+- `AGENTS.md` and `rules.md` — Codex behavior directives
 
 ## Required fonts
-Load these Google Fonts for intended look:
+The design system expects:
 - `Doto`
 - `Inter`
 - `Space Grotesk`
 - `Space Mono`
 
-Fonts are already imported in `src/styles/globals.css`.
+Font loading is already included in `src/styles/globals.css`.
 
-## Quick start
+## Local development
 ```bash
 npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite.
-
-## Validation
+## Quality checks
 ```bash
 npm run lint
 npm run build
 ```
 
-## GitHub preview (Playground)
-- This repo deploys automatically to GitHub Pages on every push to `main`.
-- Expected URL for this repository: `https://jobbsystemrapporter.github.io/codex_nothing/`
+## Use this in another project
+See [docs/USAGE.md](docs/USAGE.md) for a step-by-step integration guide.
 
-## Reuse in another project
-Copy these files/folders:
-- `src/design`
-- `src/styles/globals.css`
-- `AGENTS.md`
-- `rules.md`
+## Codex integration
+To force Codex to follow this design language in another project:
+1. Copy `AGENTS.md`, `rules.md`, `src/design`, and `src/styles/globals.css`.
+2. Import `src/styles/globals.css` in your app entry.
+3. Keep new UI built from tokens/primitives/widgets instead of one-off CSS.
 
-Then ensure:
-- your app imports `src/styles/globals.css`
-- your app includes Tailwind setup similar to `src/index.css` and `vite.config.ts`
-
-## GitHub push
-```bash
-git init
-git add .
-git commit -m "Initial codex-nothing design library"
-git branch -M main
-git remote add origin <your-repo-url>
-git push -u origin main
-```
+## Branch and contribution standard
+See [CONTRIBUTING.md](CONTRIBUTING.md) for branch naming and pull request conventions.
