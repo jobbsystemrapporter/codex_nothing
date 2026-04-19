@@ -9,10 +9,6 @@ This repository is built for **Codex-first workflows**: strong rules, reusable p
 
 ## Live preview
 - [Open Live Playground](https://jobbsystemrapporter.github.io/codex_nothing/)
-- If you see a `404` page, go to `Settings → Pages` and set:
-  - **Source:** `Deploy from a branch`
-  - **Branch:** `gh-pages`
-  - **Folder:** `/ (root)`
 
 ## Screenshots
 ### Playground overview
