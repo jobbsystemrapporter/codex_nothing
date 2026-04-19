@@ -36,6 +36,10 @@ npm run lint
 npm run build
 ```
 
+## GitHub preview (Playground)
+- This repo deploys automatically to GitHub Pages on every push to `main`.
+- Expected URL for this repository: `https://jobbsystemrapporter.github.io/codex_nothing/`
+
 ## Reuse in another project
 Copy these files/folders:
 - `src/design`
