@@ -60,7 +60,6 @@ import { WeatherStatusCard } from "../design/widgets/WeatherStatusCard";
 import { WeeklyMarksCard } from "../design/widgets/WeeklyMarksCard";
 import { WorldTimeMapCard } from "../design/widgets/WorldTimeMapCard";
 import { CompassRoseCard } from "../design/widgets/CompassRoseCard";
-import { CpuLoadGaugeCard } from "../design/widgets/CpuLoadGaugeCard";
 import { MemorySegmentsCard } from "../design/widgets/MemorySegmentsCard";
 import { BatterySegmentsCard } from "../design/widgets/BatterySegmentsCard";
 import { NetworkTrendCard } from "../design/widgets/NetworkTrendCard";
@@ -163,9 +162,6 @@ export default function NothingPlaygroundPage() {
         <LiveWeatherAccentCard />
       </Slot>
 
-      <Slot code="CPULD-048" span="md:col-span-3">
-        <CpuLoadGaugeCard value={73} />
-      </Slot>
       <Slot code="MEMRY-049" span="md:col-span-3">
         <MemorySegmentsCard activeSegments={13} total="16" used="12.4" value="12.4" />
       </Slot>
