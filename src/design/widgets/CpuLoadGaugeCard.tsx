@@ -37,9 +37,9 @@ export function CpuLoadGaugeCard({ value, light = true }: CpuLoadGaugeCardProps)
               strokeWidth="8.5"
             />
           </svg>
-          <div className="pointer-events-none absolute left-1/2 top-[64px] flex -translate-x-1/2 -translate-y-1/2 items-end gap-1">
+          <div className="pointer-events-none absolute left-1/2 top-[74px] flex -translate-x-1/2 -translate-y-1/2 items-end gap-1">
             <span
-              className="tabular-nums text-[56px] font-medium leading-[0.88] tracking-[-0.04em]"
+              className="tabular-nums text-[52px] font-medium leading-[0.88] tracking-[-0.04em]"
               style={{ color: textColor }}
             >
               {Math.round(clamped)}
