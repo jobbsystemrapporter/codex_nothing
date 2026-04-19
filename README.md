@@ -15,14 +15,8 @@ This repository is built for **Codex-first workflows**: strong rules, reusable p
   - **Folder:** `/ (root)`
 
 ## Screenshots
-### Playground overview (top section)
-![Playground top](docs/screenshots/playground-top-light.png)
-
-### Full playground (desktop)
-![Playground full desktop](docs/screenshots/playground-full-light.png)
-
-### Full playground (mobile)
-![Playground full mobile](docs/screenshots/playground-mobile-light.png)
+### Playground overview
+![Playground overview](docs/screenshots/playground-top-light.png)
 
 ## Repository structure
 - `src/design/evidence.md` — evidence boundaries and interpretation policy
