@@ -33,7 +33,7 @@ export function CpuLoadGaugeCard({ value, light = true }: CpuLoadGaugeCardProps)
             strokeWidth="5.5"
           />
         </svg>
-        <div className="pointer-events-none absolute top-[46px] flex items-end gap-0.5">
+        <div className="pointer-events-none absolute left-1/2 top-[46px] flex -translate-x-1/2 items-end gap-0.5">
           <span
             className={`tabular-nums text-[42px] font-medium leading-none tracking-[-0.03em] ${
               light ? "text-[#111111]" : "text-[var(--text)]"
