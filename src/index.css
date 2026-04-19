@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
