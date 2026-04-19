@@ -2,13 +2,13 @@
 
 Universal, evidence-based Nothing-inspired design library for React + TypeScript projects.
 
-[![Deploy Playground to GitHub Pages](https://github.com/jobbsystemrapporter/codex_nothing/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/jobbsystemrapporter/codex_nothing/actions/workflows/deploy-pages.yml)
+[![Deploy Playground](https://github.com/jobbsystemrapporter/codex_nothing/actions/workflows/deploy-gh-pages.yml/badge.svg)](https://github.com/jobbsystemrapporter/codex_nothing/actions/workflows/deploy-gh-pages.yml)
 [![Live Playground](https://img.shields.io/badge/Live%20Preview-GitHub%20Pages-black)](https://jobbsystemrapporter.github.io/codex_nothing/)
 
 This repository is built for **Codex-first workflows**: strong rules, reusable primitives, modular widgets, and a complete playground for visual validation.
 
 ## Live preview
-- GitHub Pages: https://jobbsystemrapporter.github.io/codex_nothing/
+- [Open Live Playground](https://jobbsystemrapporter.github.io/codex_nothing/)
 
 ## Screenshots
 ### Playground overview (top section)
