@@ -1,5 +1,6 @@
 import { Label } from "../primitives/Label";
 import { Tile } from "../primitives/Tile";
+import type { CSSProperties } from "react";
 
 type NowPlayingEqualizerCardProps = {
   title: string;
@@ -40,11 +41,16 @@ export function NowPlayingEqualizerCard({
           {bars.map((height, index) => (
             <span
               key={index}
-              className="w-[4px] rounded-[2px]"
-              style={{
-                backgroundColor: light ? "rgba(17,17,17,0.72)" : "rgba(245,245,245,0.72)",
-                height,
-              }}
+              className="nothing-eq-bar w-[4px] rounded-[2px]"
+              style={
+                {
+                  "--eq-base": `${height}px`,
+                  "--eq-scale": `${1 + (index % 5) * 0.16}`,
+                  "--eq-delay": `${index * 70}ms`,
+                  backgroundColor: light ? "rgba(17,17,17,0.72)" : "rgba(245,245,245,0.72)",
+                  height: `${height}px`,
+                } as CSSProperties
+              }
             />
           ))}
         </div>

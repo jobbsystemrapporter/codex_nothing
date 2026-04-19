@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Bell,
   Bluetooth,
@@ -64,6 +64,7 @@ import { MemorySegmentsCard } from "../design/widgets/MemorySegmentsCard";
 import { BatterySegmentsCard } from "../design/widgets/BatterySegmentsCard";
 import { NetworkTrendCard } from "../design/widgets/NetworkTrendCard";
 import { NowPlayingEqualizerCard } from "../design/widgets/NowPlayingEqualizerCard";
+import { useLocationForecast } from "../design/hooks/useLocationForecast";
 
 const tokenPreview = [
   `bg: ${nothingColors.bg}`,
@@ -75,6 +76,47 @@ const tokenPreview = [
   `shadow subtle: ${nothingShadows.subtle}`,
   `font body: ${nothingTypography.bodyFont}`,
 ];
+
+type QuickSettingItem = {
+  id: string;
+  name: string;
+  meta: string;
+  enabled: boolean;
+};
+
+type ToggleTileState = {
+  wifi: boolean;
+  bluetooth: boolean;
+  secure: boolean;
+  nfc: boolean;
+};
+
+type MemoryReadout = {
+  value: string;
+  used: string;
+  total: string;
+  activeSegments: number;
+};
+
+const initialQuickSettings: QuickSettingItem[] = [
+  { id: "wifi", name: "Wi-Fi", meta: "STUDIO 5G", enabled: true },
+  { id: "bluetooth", name: "Bluetooth", meta: "3 DEVICES", enabled: true },
+  { id: "darkmode", name: "Dark Mode", meta: "SYSTEM", enabled: true },
+];
+
+const initialToggleTiles: ToggleTileState = {
+  wifi: true,
+  bluetooth: false,
+  secure: false,
+  nfc: false,
+};
+
+const staticMemoryReadout: MemoryReadout = {
+  value: "12.4",
+  used: "12.4",
+  total: "16",
+  activeSegments: 13,
+};
 
 type SlotProps = {
   code: string;
@@ -94,6 +136,79 @@ function Slot({ code, span, children }: SlotProps) {
 export default function NothingPlaygroundPage() {
   const [mode, setMode] = useState<"dark" | "light">("light");
   const [shadow, setShadow] = useState<"on" | "off">("on");
+  const [quickSettings, setQuickSettings] =
+    useState<QuickSettingItem[]>(initialQuickSettings);
+  const [toggleTiles, setToggleTiles] =
+    useState<ToggleTileState>(initialToggleTiles);
+  const [memoryReadout, setMemoryReadout] =
+    useState<MemoryReadout>(staticMemoryReadout);
+  const [liveStorageEnabled, setLiveStorageEnabled] = useState(false);
+  const locationForecast = useLocationForecast();
+
+  const storageSupported =
+    typeof navigator !== "undefined" && typeof navigator.storage?.estimate === "function";
+
+  useEffect(() => {
+    if (!liveStorageEnabled) {
+      setMemoryReadout(staticMemoryReadout);
+      return;
+    }
+
+    if (!storageSupported) {
+      return;
+    }
+
+    let alive = true;
+    let timer: number | undefined;
+
+    const updateStorageEstimate = async () => {
+      try {
+        const estimate = await navigator.storage.estimate();
+        if (!alive) return;
+
+        const usage = estimate.usage ?? 0;
+        const quota = estimate.quota ?? 0;
+        if (quota <= 0) return;
+
+        const usedGb = usage / 1024 ** 3;
+        const totalGb = quota / 1024 ** 3;
+        const safeTotal = Math.max(totalGb, 0.1);
+        const segments = Math.max(
+          1,
+          Math.min(16, Math.round((usedGb / safeTotal) * 16))
+        );
+
+        setMemoryReadout({
+          value: usedGb.toFixed(1),
+          used: usedGb.toFixed(1),
+          total: totalGb >= 100 ? totalGb.toFixed(0) : totalGb.toFixed(1),
+          activeSegments: segments,
+        });
+      } catch {
+        if (!alive) return;
+      }
+    };
+
+    void updateStorageEstimate();
+    timer = window.setInterval(updateStorageEstimate, 15000);
+
+    return () => {
+      alive = false;
+      if (timer !== undefined) {
+        window.clearInterval(timer);
+      }
+    };
+  }, [liveStorageEnabled, storageSupported]);
+
+  const handleQuickSettingToggle = (id: string, next: boolean) => {
+    setQuickSettings((current) =>
+      current.map((item) => (item.id === id ? { ...item, enabled: next } : item))
+    );
+  };
+
+  const toggleTile = (key: keyof ToggleTileState) => {
+    setToggleTiles((current) => ({ ...current, [key]: !current[key] }));
+  };
 
   return (
     <WidgetGrid mode={mode} shadow={shadow}>
@@ -163,7 +278,15 @@ export default function NothingPlaygroundPage() {
       </Slot>
 
       <Slot code="MEMRY-049" span="md:col-span-3">
-        <MemorySegmentsCard activeSegments={13} total="16" used="12.4" value="12.4" />
+        <MemorySegmentsCard
+          activeSegments={memoryReadout.activeSegments}
+          liveEnabled={liveStorageEnabled}
+          liveSupported={storageSupported}
+          onToggleLive={() => setLiveStorageEnabled((current) => !current)}
+          total={memoryReadout.total}
+          used={memoryReadout.used}
+          value={memoryReadout.value}
+        />
       </Slot>
       <Slot code="NPLAY-050" span="md:col-span-6">
         <NowPlayingEqualizerCard
@@ -177,11 +300,8 @@ export default function NothingPlaygroundPage() {
       </Slot>
       <Slot code="QSETS-051" span="md:col-span-6">
         <QuickSettingsListCard
-          items={[
-            { enabled: true, meta: "STUDIO 5G", name: "Wi-Fi" },
-            { enabled: true, meta: "3 DEVICES", name: "Bluetooth" },
-            { enabled: true, meta: "SYSTEM", name: "Dark Mode" },
-          ]}
+          items={quickSettings}
+          onToggle={handleQuickSettingToggle}
         />
       </Slot>
       <Slot code="STPIL-052" span="md:col-span-3">
@@ -301,17 +421,18 @@ export default function NothingPlaygroundPage() {
       </Slot>
       <Slot code="FORCT-024" span="md:col-span-4">
         <ForecastStripCard
-          city="TORONTO"
-          days={[
-            { day: "WED", high: "-3", low: "-6", icon: "☁" },
-            { day: "THU", high: "-1", low: "-9", icon: "❄" },
-            { day: "FRI", high: "-9", low: "-10", icon: "❄" },
-            { day: "SAT", high: "-6", low: "-6", icon: "☁" },
-            { day: "SUN", high: "-4", low: "-6", icon: "☁" },
-            { day: "MON", high: "-4", low: "-6", icon: "☁" },
-          ]}
-          subtitle="Party Cloudy"
-          temp="30°"
+          actionLabel={locationForecast.source === "location" ? "Refresh location" : "Use my location"}
+          city={locationForecast.city}
+          days={locationForecast.days}
+          onAction={locationForecast.requestLocation}
+          subtitle={
+            locationForecast.loading
+              ? "Loading local forecast..."
+              : `${locationForecast.subtitle} · ${
+                  locationForecast.source === "location" ? "Location based" : "Fallback"
+                }`
+          }
+          temp={locationForecast.temp}
         />
       </Slot>
 
@@ -337,10 +458,30 @@ export default function NothingPlaygroundPage() {
         <Tile className="min-h-[200px] p-5">
           <Label>Toggle tiles</Label>
           <div className="mt-5 grid grid-cols-2 gap-3">
-            <ToggleTile active icon={<Wifi className="h-5 w-5" strokeWidth={1.8} />} label="Wi-Fi" />
-            <ToggleTile icon={<Bluetooth className="h-5 w-5" strokeWidth={1.8} />} label="Bluetooth" />
-            <ToggleTile icon={<ShieldCheck className="h-5 w-5" strokeWidth={1.8} />} label="Secure" />
-            <ToggleTile icon={<Radio className="h-5 w-5" strokeWidth={1.8} />} label="NFC" />
+            <ToggleTile
+              active={toggleTiles.wifi}
+              icon={<Wifi className="h-5 w-5" strokeWidth={1.8} />}
+              label="Wi-Fi"
+              onToggle={() => toggleTile("wifi")}
+            />
+            <ToggleTile
+              active={toggleTiles.bluetooth}
+              icon={<Bluetooth className="h-5 w-5" strokeWidth={1.8} />}
+              label="Bluetooth"
+              onToggle={() => toggleTile("bluetooth")}
+            />
+            <ToggleTile
+              active={toggleTiles.secure}
+              icon={<ShieldCheck className="h-5 w-5" strokeWidth={1.8} />}
+              label="Secure"
+              onToggle={() => toggleTile("secure")}
+            />
+            <ToggleTile
+              active={toggleTiles.nfc}
+              icon={<Radio className="h-5 w-5" strokeWidth={1.8} />}
+              label="NFC"
+              onToggle={() => toggleTile("nfc")}
+            />
           </div>
         </Tile>
       </Slot>

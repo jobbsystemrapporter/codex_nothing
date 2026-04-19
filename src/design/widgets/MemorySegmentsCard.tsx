@@ -9,6 +9,9 @@ type MemorySegmentsCardProps = {
   activeSegments?: number;
   segments?: number;
   light?: boolean;
+  liveEnabled?: boolean;
+  liveSupported?: boolean;
+  onToggleLive?: () => void;
 };
 
 export function MemorySegmentsCard({
@@ -19,12 +22,31 @@ export function MemorySegmentsCard({
   activeSegments = 12,
   segments = 16,
   light = true,
+  liveEnabled = false,
+  liveSupported = false,
+  onToggleLive,
 }: MemorySegmentsCardProps) {
   const muted = light ? "text-[rgba(17,17,17,0.58)]" : "text-[var(--text-muted)]";
 
   return (
     <Tile light={light} className="min-h-[180px] p-4">
-      <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>MEMORY</Label>
+      <div className="flex items-center justify-between gap-2">
+        <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>MEMORY</Label>
+        {onToggleLive ? (
+          <button
+            className={`rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.1em] ${
+              liveEnabled
+                ? "border-[#f97316] text-[#f97316]"
+                : "border-[var(--border)] text-[var(--text-muted)]"
+            } ${!liveSupported ? "opacity-50" : ""}`}
+            disabled={!liveSupported}
+            onClick={onToggleLive}
+            type="button"
+          >
+            {liveEnabled ? "Live on" : "Live off"}
+          </button>
+        ) : null}
+      </div>
       <div className="mt-4 flex items-end gap-2">
         <p className="text-[56px] leading-[0.88] tracking-[-0.03em]">{value}</p>
         <p className={`pb-1 text-[24px] leading-none ${muted}`}>{unit}</p>

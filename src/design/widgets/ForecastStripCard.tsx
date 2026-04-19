@@ -14,6 +14,8 @@ type ForecastStripCardProps = {
   temp: string;
   subtitle: string;
   days: ForecastDay[];
+  actionLabel?: string;
+  onAction?: () => void;
 };
 
 export function ForecastStripCard({
@@ -21,6 +23,8 @@ export function ForecastStripCard({
   temp,
   subtitle,
   days,
+  actionLabel,
+  onAction,
 }: ForecastStripCardProps) {
   return (
     <Tile className="min-h-[190px] p-4">
@@ -29,7 +33,18 @@ export function ForecastStripCard({
           <Label>{city}</Label>
           <p className="mt-1 text-[13px] text-[var(--text-muted)]">{subtitle}</p>
         </div>
-        <DotText value={temp} className="text-[50px] leading-[0.9] tracking-[0.01em]" />
+        <div className="text-right">
+          <DotText value={temp} className="text-[50px] leading-[0.9] tracking-[0.01em]" />
+          {onAction ? (
+            <button
+              className="mt-1 text-[10px] uppercase tracking-[0.12em] text-[var(--text-muted)] underline-offset-2 hover:underline"
+              onClick={onAction}
+              type="button"
+            >
+              {actionLabel ?? "Refresh"}
+            </button>
+          ) : null}
+        </div>
       </div>
 
       <div className="mt-4 grid grid-cols-6 gap-2">

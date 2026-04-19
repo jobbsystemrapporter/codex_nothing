@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Doto:wght@400..700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Doto:wght@400..700&family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
   --bg: #000000;
@@ -101,6 +101,29 @@ body {
 .nothing-no-shadow .nothing-card,
 .nothing-no-shadow .nothing-card-light {
   box-shadow: none !important;
+}
+
+.nothing-eq-bar {
+  animation: nothingEqPulse 1180ms ease-in-out infinite;
+  animation-delay: var(--eq-delay, 0ms);
+  transform-origin: bottom center;
+}
+
+@keyframes nothingEqPulse {
+  0%,
+  100% {
+    transform: scaleY(0.42);
+  }
+  50% {
+    transform: scaleY(var(--eq-scale, 1));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nothing-eq-bar {
+    animation: none;
+    transform: none;
+  }
 }
 
 a:focus-visible,
