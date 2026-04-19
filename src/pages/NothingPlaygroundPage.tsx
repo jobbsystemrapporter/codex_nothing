@@ -163,6 +163,58 @@ export default function NothingPlaygroundPage() {
         <LiveWeatherAccentCard />
       </Slot>
 
+      <Slot code="CPULD-048" span="md:col-span-3">
+        <CpuLoadGaugeCard value={73} />
+      </Slot>
+      <Slot code="MEMRY-049" span="md:col-span-3">
+        <MemorySegmentsCard activeSegments={13} total="16" used="12.4" value="12.4" />
+      </Slot>
+      <Slot code="NPLAY-050" span="md:col-span-6">
+        <NowPlayingEqualizerCard
+          artist="Kavinsky"
+          end="04:47"
+          genre="Outrun"
+          progress={58}
+          start="02:34"
+          title="Nightcall"
+        />
+      </Slot>
+      <Slot code="QSETS-051" span="md:col-span-6">
+        <QuickSettingsListCard
+          items={[
+            { enabled: true, meta: "STUDIO 5G", name: "Wi-Fi" },
+            { enabled: true, meta: "3 DEVICES", name: "Bluetooth" },
+            { enabled: true, meta: "SYSTEM", name: "Dark Mode" },
+          ]}
+        />
+      </Slot>
+      <Slot code="STPIL-052" span="md:col-span-3">
+        <StatusPillsCard
+          pills={[
+            { label: "CONNECTED", tone: "green" },
+            { label: "SYNCED", tone: "default" },
+            { label: "2 UPDATES", tone: "orange" },
+            { label: "V2.1.4", tone: "default" },
+          ]}
+        />
+      </Slot>
+      <Slot code="BATRY-053" span="md:col-span-3">
+        <BatterySegmentsCard active={17} eta="4H 23M" value="87" />
+      </Slot>
+      <Slot code="NTRND-054" span="md:col-span-3">
+        <NetworkTrendCard delta="12 MB/S" value="248" />
+      </Slot>
+      <Slot code="STRMW-055" span="md:col-span-9">
+        <StorageMultiRowCard
+          capacityLabel="128 GB"
+          rows={[
+            { name: "SYSTEM", total: 128, used: 48 },
+            { name: "MEDIA", total: 128, used: 23 },
+            { name: "APPS", tone: "orange", total: 128, used: 52 },
+          ]}
+        />
+      </Slot>
+
       <Slot code="WSLOC-004" span="md:col-span-2">
         <WeatherStatusCard message="Location permission needed" variant="location" />
       </Slot>
@@ -389,60 +441,6 @@ export default function NothingPlaygroundPage() {
       </Slot>
       <Slot code="DOTWX-047" span="md:col-span-3">
         <WeatherMatrixCard city="LONDON" condition="SHOWERS" temp="12°" />
-      </Slot>
-
-      <Slot code="CPULD-048" span="md:col-span-3">
-        <CpuLoadGaugeCard value={73} />
-      </Slot>
-      <Slot code="MEMRY-049" span="md:col-span-3">
-        <MemorySegmentsCard activeSegments={13} total="16" used="12.4" value="12.4" />
-      </Slot>
-      <Slot code="NPLAY-050" span="md:col-span-6">
-        <NowPlayingEqualizerCard
-          artist="Kavinsky"
-          end="04:47"
-          genre="Outrun"
-          progress={58}
-          start="02:34"
-          title="Nightcall"
-        />
-      </Slot>
-
-      <Slot code="QSETS-051" span="md:col-span-6">
-        <QuickSettingsListCard
-          items={[
-            { enabled: true, meta: "STUDIO 5G", name: "Wi-Fi" },
-            { enabled: true, meta: "3 DEVICES", name: "Bluetooth" },
-            { enabled: true, meta: "SYSTEM", name: "Dark Mode" },
-          ]}
-        />
-      </Slot>
-      <Slot code="STPIL-052" span="md:col-span-3">
-        <StatusPillsCard
-          pills={[
-            { label: "CONNECTED", tone: "green" },
-            { label: "SYNCED", tone: "default" },
-            { label: "2 UPDATES", tone: "orange" },
-            { label: "V2.1.4", tone: "default" },
-          ]}
-        />
-      </Slot>
-      <Slot code="BATRY-053" span="md:col-span-3">
-        <BatterySegmentsCard active={17} eta="4H 23M" value="87" />
-      </Slot>
-
-      <Slot code="NTRND-054" span="md:col-span-3">
-        <NetworkTrendCard delta="12 MB/S" value="248" />
-      </Slot>
-      <Slot code="STRMW-055" span="md:col-span-9">
-        <StorageMultiRowCard
-          capacityLabel="128 GB"
-          rows={[
-            { name: "SYSTEM", total: 128, used: 48 },
-            { name: "MEDIA", total: 128, used: 23 },
-            { name: "APPS", tone: "orange", total: 128, used: 52 },
-          ]}
-        />
       </Slot>
     </WidgetGrid>
   );
