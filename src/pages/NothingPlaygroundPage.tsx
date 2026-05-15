@@ -211,7 +211,7 @@ export default function NothingPlaygroundPage() {
   };
 
   return (
-    <WidgetGrid mode={mode} shadow={shadow}>
+    <WidgetGrid mode={mode} shadow={shadow} id="main-content">
       <div className="md:col-span-12">
         <Tile className="p-4 md:p-5">
           <div className="flex flex-wrap items-center justify-between gap-4">

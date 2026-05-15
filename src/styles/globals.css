@@ -134,3 +134,50 @@ select:focus-visible {
   outline: 2px solid var(--danger);
   outline-offset: 2px;
 }
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--danger);
+  color: white;
+  padding: 8px 16px;
+  z-index: 100;
+  border-radius: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+
+  .nothing-body-md {
+    font-size: 15px;
+  }
+
+  .nothing-card {
+    padding: 16px;
+  }
+
+  .nothing-card-light {
+    padding: 16px;
+  }
+
+  button,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+  }
+}
