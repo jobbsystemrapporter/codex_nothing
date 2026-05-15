@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { DotMatrixNumber } from "../primitives/DotMatrixNumber";
 import { Label } from "../primitives/Label";
 import { Tile } from "../primitives/Tile";
-import { ThemeContext } from "../context/ThemeContext";
 
 type AgendaItem = {
   time: string;
@@ -17,8 +16,7 @@ type DayAgendaCardProps = {
 };
 
 export function DayAgendaCard({ dayNumber, dayName, items, light: explicitLight }: DayAgendaCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
+  const light = useWidgetTheme(explicitLight);
 
   const textColor = light ? "text-[rgba(17,17,17,0.8)]" : "text-[var(--white-soft)]";
   const bgColor = light ? "bg-[rgba(17,17,17,0.06)]" : "bg-[rgba(255,255,255,0.05)]";

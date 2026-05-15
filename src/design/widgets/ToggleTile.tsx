@@ -1,8 +1,7 @@
 import { CircleTile } from "../primitives/CircleTile";
 import { Label } from "../primitives/Label";
 import type { ReactNode } from "react";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import clsx from "clsx";
 
 type ToggleTileProps = {
@@ -13,8 +12,7 @@ type ToggleTileProps = {
 };
 
 export function ToggleTile({ icon, label, active, onToggle }: ToggleTileProps) {
-  const theme = useContext(ThemeContext);
-  const light = theme.isLight;
+  const light = useWidgetTheme();
   const content = (
     <div className="flex flex-col items-center gap-3">
       <div>{icon}</div>

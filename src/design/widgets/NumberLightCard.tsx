@@ -1,6 +1,5 @@
 import { DotText } from "../primitives/DotText";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { Tile } from "../primitives/Tile";
 
 type NumberLightCardProps = {
@@ -9,8 +8,7 @@ type NumberLightCardProps = {
 };
 
 export function NumberLightCard({ value, light: explicitLight }: NumberLightCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
+  const light = useWidgetTheme(explicitLight);
   const textColor = light ? "text-[var(--card-light-text)]" : "text-[var(--text)]";
   return (
     <Tile light={light} className="min-h-[170px] flex items-center justify-center p-4">

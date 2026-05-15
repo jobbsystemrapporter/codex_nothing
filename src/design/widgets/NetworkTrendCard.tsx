@@ -1,6 +1,5 @@
 import { Label } from "../primitives/Label";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { Tile } from "../primitives/Tile";
 
 type NetworkTrendCardProps = {
@@ -16,8 +15,7 @@ export function NetworkTrendCard({
   delta,
   light: explicitLight,
 }: NetworkTrendCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
+  const light = useWidgetTheme(explicitLight);
   const muted = light ? "text-[rgba(17,17,17,0.58)]" : "text-[var(--text-muted)]";
   const stroke = light ? "rgba(249,115,22,0.85)" : "rgba(249,115,22,0.95)";
 

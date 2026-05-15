@@ -1,17 +1,13 @@
 import type { PropsWithChildren } from "react";
+import { useTheme } from "../hooks/useTheme";
 
 type WidgetGridProps = PropsWithChildren<{
-  mode?: "dark" | "light";
   shadow?: "on" | "off";
   id?: string;
 }>;
 
-export function WidgetGrid({
-  children,
-  mode = "light",
-  shadow = "on",
-  id,
-}: WidgetGridProps) {
+export function WidgetGrid({ children, shadow = "on", id }: WidgetGridProps) {
+  const { mode } = useTheme();
   return (
     <div
       id={id}

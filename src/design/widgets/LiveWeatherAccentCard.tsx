@@ -1,9 +1,9 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DotMatrixNumber } from "../primitives/DotMatrixNumber";
 import { Label } from "../primitives/Label";
 import { Tile } from "../primitives/Tile";
 import { WeatherDotsIcon, type WeatherDotsVariant } from "../primitives/WeatherDotsIcon";
-import { ThemeContext } from "../context/ThemeContext";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { useLiveTime } from "../hooks/useLiveTime";
 
 type LiveWeatherAccentCardProps = {
@@ -49,8 +49,7 @@ export function LiveWeatherAccentCard({
   fallbackLat = FALLBACK.lat,
   fallbackLon = FALLBACK.lon,
 }: LiveWeatherAccentCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = theme.isLight;
+  const light = useWidgetTheme();
   const [coords, setCoords] = useState({ lat: fallbackLat, lon: fallbackLon, city: fallbackCity });
   const [weather, setWeather] = useState<WeatherState | null>(null);
   const [loading, setLoading] = useState(true);

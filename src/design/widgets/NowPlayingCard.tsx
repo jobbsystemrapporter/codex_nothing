@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { Tile } from "../primitives/Tile";
 
 type NowPlayingCardProps = {
@@ -8,8 +7,7 @@ type NowPlayingCardProps = {
 };
 
 export function NowPlayingCard({ track, artist }: NowPlayingCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = theme.isLight;
+  const light = useWidgetTheme();
   return (
     <Tile className="min-h-[170px] p-4">
       <div className="flex items-start justify-between">

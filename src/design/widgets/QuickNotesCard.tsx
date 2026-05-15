@@ -1,7 +1,6 @@
-import { useContext } from "react";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { DotText } from "../primitives/DotText";
 import { Tile } from "../primitives/Tile";
-import { ThemeContext } from "../context/ThemeContext";
 
 type QuickNotesCardProps = {
   note: string;
@@ -10,8 +9,7 @@ type QuickNotesCardProps = {
 };
 
 export function QuickNotesCard({ note, compact = false, light: explicitLight }: QuickNotesCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
+  const light = useWidgetTheme(explicitLight);
 
   const bgColor = light ? "bg-[rgba(17,17,17,0.06)]" : "bg-[rgba(255,255,255,0.05)]";
   const textColor = light ? "text-[rgba(17,17,17,0.8)]" : "text-[var(--white-soft)]";

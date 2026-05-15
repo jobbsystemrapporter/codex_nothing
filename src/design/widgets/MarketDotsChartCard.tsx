@@ -1,9 +1,8 @@
-import { useContext } from "react";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { DotGridChart } from "../primitives/DotGridChart";
 import { DotText } from "../primitives/DotText";
 import { Label } from "../primitives/Label";
 import { Tile } from "../primitives/Tile";
-import { ThemeContext } from "../context/ThemeContext";
 
 type MarketDotsChartCardProps = {
   symbol: string;
@@ -22,8 +21,7 @@ export function MarketDotsChartCard({
   changePct,
   light: explicitLight,
 }: MarketDotsChartCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
+  const light = useWidgetTheme(explicitLight);
 
   const textColor = light ? "text-[rgba(17,17,17,0.8)]" : "text-[var(--white-soft)]";
 

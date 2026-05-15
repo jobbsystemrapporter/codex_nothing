@@ -95,6 +95,7 @@ body {
   box-shadow:
     0 1px 0 rgba(255,255,255,0.04) inset,
     0 18px 36px rgba(0,0,0,0.38);
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
 }
 
 .nothing-card-light {
@@ -105,6 +106,11 @@ body {
   box-shadow:
     0 1px 0 rgba(255,255,255,0.58) inset,
     0 14px 26px rgba(0,0,0,0.24);
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.nothing-label {
+  transition: color 300ms ease;
 }
 
 .nothing-no-shadow .nothing-card,

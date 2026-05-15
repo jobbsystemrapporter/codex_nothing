@@ -1,6 +1,5 @@
 import { Label } from "../primitives/Label";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { Tile } from "../primitives/Tile";
 
 type WeekMark = {
@@ -15,8 +14,7 @@ type WeeklyMarksCardProps = {
 };
 
 export function WeeklyMarksCard({ marks, light: explicitLight }: WeeklyMarksCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
+  const light = useWidgetTheme(explicitLight);
   const muted = light ? "text-[rgba(17,17,17,0.62)]" : "text-[var(--text-muted)]";
   const rowBorder = light ? "border-[rgba(17,17,17,0.08)]" : "border-[var(--border)]";
 

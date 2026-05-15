@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Bell,
   Bluetooth,
@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   Wifi,
 } from "lucide-react";
-import { ThemeProvider } from "../design/context/ThemeContext";
+import { useTheme } from "../design/hooks/useTheme";
 import { WidgetGrid } from "../design/layout/WidgetGrid";
 import { CircleTile } from "../design/primitives/CircleTile";
 import { DotText } from "../design/primitives/DotText";
@@ -119,6 +119,18 @@ const staticMemoryReadout: MemoryReadout = {
   activeSegments: 13,
 };
 
+function usePulsingValue(base: number, variance: number, interval = 3000) {
+  const [value, setValue] = useState(base);
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      const delta = (Math.random() - 0.5) * variance * 2;
+      setValue(Math.round((base + delta) * 10) / 10);
+    }, interval);
+    return () => window.clearInterval(timer);
+  }, [base, variance, interval]);
+  return value;
+}
+
 type SlotProps = {
   code: string;
   span: string;
@@ -135,7 +147,7 @@ function Slot({ code, span, children }: SlotProps) {
 }
 
 export default function NothingPlaygroundPage() {
-  const [mode, setMode] = useState<"dark" | "light">("light");
+  const { mode, setMode } = useTheme();
   const [shadow, setShadow] = useState<"on" | "off">("on");
   const [quickSettings, setQuickSettings] =
     useState<QuickSettingItem[]>(initialQuickSettings);
@@ -149,23 +161,24 @@ export default function NothingPlaygroundPage() {
   const storageSupported =
     typeof navigator !== "undefined" && typeof navigator.storage?.estimate === "function";
 
+  const aliveRef = useRef(true);
+
   useEffect(() => {
-    if (!liveStorageEnabled) {
-      setMemoryReadout(staticMemoryReadout);
+    aliveRef.current = true;
+    return () => {
+      aliveRef.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!liveStorageEnabled || !storageSupported) {
       return;
     }
-
-    if (!storageSupported) {
-      return;
-    }
-
-    let alive = true;
-    let timer: number | undefined;
 
     const updateStorageEstimate = async () => {
       try {
         const estimate = await navigator.storage.estimate();
-        if (!alive) return;
+        if (!aliveRef.current) return;
 
         const usage = estimate.usage ?? 0;
         const quota = estimate.quota ?? 0;
@@ -186,20 +199,25 @@ export default function NothingPlaygroundPage() {
           activeSegments: segments,
         });
       } catch {
-        if (!alive) return;
+        if (!aliveRef.current) return;
       }
     };
 
     void updateStorageEstimate();
-    timer = window.setInterval(updateStorageEstimate, 15000);
+    const timer = window.setInterval(updateStorageEstimate, 15000);
 
     return () => {
-      alive = false;
-      if (timer !== undefined) {
-        window.clearInterval(timer);
-      }
+      window.clearInterval(timer);
     };
   }, [liveStorageEnabled, storageSupported]);
+
+  const handleLiveToggle = () => {
+    setLiveStorageEnabled((prev) => {
+      const next = !prev;
+      if (!next) setMemoryReadout(staticMemoryReadout);
+      return next;
+    });
+  };
 
   const handleQuickSettingToggle = (id: string, next: boolean) => {
     setQuickSettings((current) =>
@@ -211,9 +229,18 @@ export default function NothingPlaygroundPage() {
     setToggleTiles((current) => ({ ...current, [key]: !current[key] }));
   };
 
+  const networkValue = usePulsingValue(248, 15);
+  const batteryValue = usePulsingValue(87, 3);
+  const batteryActive = useMemo(
+    () => Math.max(14, Math.min(20, Math.round(batteryValue / 5))),
+    [batteryValue]
+  );
+  const bpmValue = usePulsingValue(89, 4);
+  const ordersValue = usePulsingValue(143, 5);
+  const dotCountValue = usePulsingValue(43465, 120);
+
   return (
-    <ThemeProvider mode={mode}>
-      <WidgetGrid mode={mode} shadow={shadow} id="main-content">
+    <WidgetGrid shadow={shadow} id="main-content">
       <div className="md:col-span-12">
         <Tile className="p-4 md:p-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -270,10 +297,10 @@ export default function NothingPlaygroundPage() {
       </div>
 
       <Slot code="DNUMB-001" span="md:col-span-4">
-        <DotNumberBoardCard light={mode === "light"} />
+        <DotNumberBoardCard />
       </Slot>
       <Slot code="DNUMB-002" span="md:col-span-4">
-        <DotNumberBoardCard light={mode === "light"} />
+        <DotNumberBoardCard />
       </Slot>
       <Slot code="LVWTH-003" span="md:col-span-4">
         <LiveWeatherAccentCard />
@@ -284,7 +311,7 @@ export default function NothingPlaygroundPage() {
           activeSegments={memoryReadout.activeSegments}
           liveEnabled={liveStorageEnabled}
           liveSupported={storageSupported}
-          onToggleLive={() => setLiveStorageEnabled((current) => !current)}
+          onToggleLive={handleLiveToggle}
           total={memoryReadout.total}
           used={memoryReadout.used}
           value={memoryReadout.value}
@@ -317,10 +344,10 @@ export default function NothingPlaygroundPage() {
         />
       </Slot>
       <Slot code="BATRY-053" span="md:col-span-3">
-        <BatterySegmentsCard active={17} eta="4H 23M" value="87" />
+        <BatterySegmentsCard active={batteryActive} eta="4H 23M" value={String(Math.round(batteryValue))} />
       </Slot>
       <Slot code="NTRND-054" span="md:col-span-3">
-        <NetworkTrendCard delta="12 MB/S" value="248" />
+        <NetworkTrendCard delta="12 MB/S" value={String(Math.round(networkValue))} />
       </Slot>
       <Slot code="STRMW-055" span="md:col-span-9">
         <StorageMultiRowCard
@@ -343,13 +370,13 @@ export default function NothingPlaygroundPage() {
         <WeatherStatusCard condition="Showers" temp="14" variant="showers" />
       </Slot>
       <Slot code="WLLOC-007" span="md:col-span-2">
-        <WeatherStatusCard light={mode === "light"} message="Location permission needed" variant="location" />
+        <WeatherStatusCard message="Location permission needed" variant="location" />
       </Slot>
       <Slot code="WLSUN-008" span="md:col-span-2">
-        <WeatherStatusCard light={mode === "light"} condition="Sunny day" temp="22" variant="sunny" />
+        <WeatherStatusCard condition="Sunny day" temp="22" variant="sunny" />
       </Slot>
       <Slot code="WLSHW-009" span="md:col-span-2">
-        <WeatherStatusCard light={mode === "light"} condition="Showers" temp="14" variant="showers" />
+        <WeatherStatusCard condition="Showers" temp="14" variant="showers" />
       </Slot>
 
       <Slot code="CLKDG-010" span="md:col-span-3">
@@ -362,15 +389,14 @@ export default function NothingPlaygroundPage() {
         <TempRangeCircleCard high="15°" low="7°" />
       </Slot>
       <Slot code="STRAK-013" span="md:col-span-3">
-        <StepsStreakCard light={mode === "light"} streak="3" totalSteps="5,543" />
+        <StepsStreakCard streak="3" totalSteps="5,543" />
       </Slot>
 
       <Slot code="QNOTE-014" span="md:col-span-6">
-        <QuickNotesCard light={mode === "light"} note="Two roads diverged in a yellow wood and sorry I could not travel both." />
+        <QuickNotesCard note="Two roads diverged in a yellow wood and sorry I could not travel both." />
       </Slot>
       <Slot code="DAGEN-015" span="md:col-span-6">
         <DayAgendaCard
-          light={mode === "light"}
           dayName="Monday"
           dayNumber="15"
           items={[
@@ -390,7 +416,7 @@ export default function NothingPlaygroundPage() {
         />
       </Slot>
       <Slot code="MRKET-017" span="md:col-span-6">
-        <MarketDotsChartCard light={mode === "light"} change="+2.5" changePct="0.017%" symbol="NASDAQ" value="$14,972" />
+        <MarketDotsChartCard change="+2.5" changePct="0.017%" symbol="NASDAQ" value="$14,972" />
       </Slot>
 
       <Slot code="DBTIM-018" span="md:col-span-3">
@@ -400,14 +426,14 @@ export default function NothingPlaygroundPage() {
         <NowPlayingCard artist="Jim Hall" track="Concerto" />
       </Slot>
       <Slot code="COORD-020" span="md:col-span-3">
-        <CoordinatesCircleCard altitude="108 ft" lat="51°30'49.2”N" lng="0°05'30.4”W" />
+        <CoordinatesCircleCard altitude="108 ft" lat={"51°30'49.2\"N"} lng={"0°05'30.4\"W"} />
       </Slot>
       <Slot code="PAIRD-021" span="md:col-span-3">
         <PairDeviceCard subtitle="New device" title="Pair" />
       </Slot>
 
       <Slot code="APLSE-022" span="md:col-span-4">
-        <ActivityPulseCard activity="JOGGING" bpm="89" duration="00:06:19" steps="1283" />
+        <ActivityPulseCard activity="JOGGING" bpm={String(Math.round(bpmValue))} duration="00:06:19" steps="1283" />
       </Slot>
       <Slot code="WMARK-023" span="md:col-span-4">
         <WeeklyMarksCard
@@ -450,9 +476,7 @@ export default function NothingPlaygroundPage() {
           </div>
           <div className="mt-5 grid gap-2">
             <Pill className="text-[11px] uppercase tracking-[0.08em]">Torch</Pill>
-            <Pill light={mode === "light"} className="text-[11px] uppercase tracking-[0.08em] text-[var(--card-light-text)]">
-              Data saver
-            </Pill>
+            <Pill className="text-[11px] uppercase tracking-[0.08em]">Data saver</Pill>
             <Pill className="text-[11px] uppercase tracking-[0.08em]">Hotspot</Pill>
           </div>
         </Tile>
@@ -518,7 +542,7 @@ export default function NothingPlaygroundPage() {
         <WeatherMatrixCard city="HONG KONG" condition="PARTY CLOUDY" temp="29°" />
       </Slot>
       <Slot code="WTHCR-032" span="md:col-span-3">
-        <WeatherCard light={mode === "light"} temp="12°C" label="Stockholm" condition="Cloudy Day" />
+        <WeatherCard temp="12°C" label="Stockholm" condition="Cloudy Day" />
       </Slot>
       <Slot code="LOCRD-033" span="md:col-span-3">
         <CircleTile className="min-h-[200px] border-0 bg-[var(--danger)] p-6 text-[var(--white)]">
@@ -533,7 +557,7 @@ export default function NothingPlaygroundPage() {
       </Slot>
 
       <Slot code="STATO-035" span="md:col-span-2">
-        <StatCard label="Orders" value="143" accent />
+        <StatCard label="Orders" value={String(Math.round(ordersValue))} accent />
       </Slot>
       <Slot code="STATE-036" span="md:col-span-2">
         <StatCard label="Teams" value="12" />
@@ -567,7 +591,7 @@ export default function NothingPlaygroundPage() {
         <GmtDotCard />
       </Slot>
       <Slot code="DTCNT-041" span="md:col-span-2">
-        <DotCountMiniCard value="43,465" />
+        <DotCountMiniCard value={String(Math.round(dotCountValue))} />
       </Slot>
       <Slot code="CMPRS-042" span="md:col-span-2">
         <CompassRoseCard />
@@ -583,6 +607,5 @@ export default function NothingPlaygroundPage() {
         <WeatherMatrixCard city="LONDON" condition="SHOWERS" temp="12°" />
       </Slot>
     </WidgetGrid>
-    </ThemeProvider>
   );
 }

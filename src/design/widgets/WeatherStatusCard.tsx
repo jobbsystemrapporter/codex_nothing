@@ -1,7 +1,6 @@
 import { DotMatrixNumber } from "../primitives/DotMatrixNumber";
 import { Label } from "../primitives/Label";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { Tile } from "../primitives/Tile";
 import { WeatherDotsIcon, type WeatherDotsVariant } from "../primitives/WeatherDotsIcon";
 
@@ -22,8 +21,7 @@ export function WeatherStatusCard({
   message,
   light: explicitLight,
 }: WeatherStatusCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
+  const light = useWidgetTheme(explicitLight);
   const muted = light ? "text-[rgba(17,17,17,0.72)]" : "text-[var(--text-muted)]";
 
   return (

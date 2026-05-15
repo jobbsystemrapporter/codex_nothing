@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { DotText } from "../primitives/DotText";
 import { Label } from "../primitives/Label";
 import { Tile } from "../primitives/Tile";
-import { ThemeContext } from "../context/ThemeContext";
 
 type CityTime = {
   city: string;
@@ -28,8 +27,7 @@ const mapRows = [
 const highlights = new Set(["16-6", "25-4", "42-7"]);
 
 export function WorldTimeMapCard({ items }: WorldTimeMapCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = theme.isLight;
+  const light = useWidgetTheme();
   const dotOn = light ? "rgba(17,17,17,0.52)" : "rgba(255,255,255,0.52)";
   const dotOff = light ? "rgba(17,17,17,0.08)" : "rgba(255,255,255,0.05)";
   return (

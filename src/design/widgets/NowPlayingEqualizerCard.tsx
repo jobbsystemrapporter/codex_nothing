@@ -1,6 +1,5 @@
 import { Label } from "../primitives/Label";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { Tile } from "../primitives/Tile";
 import type { CSSProperties } from "react";
 
@@ -25,8 +24,7 @@ export function NowPlayingEqualizerCard({
   progress = 62,
   light: explicitLight,
 }: NowPlayingEqualizerCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
+  const light = useWidgetTheme(explicitLight);
   const clamped = Math.max(0, Math.min(100, progress));
   const muted = light ? "text-[rgba(17,17,17,0.58)]" : "text-[var(--text-muted)]";
 

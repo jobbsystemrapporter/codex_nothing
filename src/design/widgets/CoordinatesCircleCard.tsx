@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { CircleTile } from "../primitives/CircleTile";
 
 type CoordinatesCircleCardProps = {
@@ -15,8 +14,7 @@ export function CoordinatesCircleCard({
   altitude,
   light: explicitLight,
 }: CoordinatesCircleCardProps) {
-  const theme = useContext(ThemeContext);
-  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
+  const light = useWidgetTheme(explicitLight);
   const textColor = light ? "text-[rgba(17,17,17,0.72)]" : "text-[var(--text-muted)]";
 
   return (
