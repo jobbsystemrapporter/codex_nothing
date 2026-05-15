@@ -366,10 +366,11 @@ export default function NothingPlaygroundPage() {
       </Slot>
 
       <Slot code="QNOTE-014" span="md:col-span-6">
-        <QuickNotesCard note="Two roads diverged in a yellow wood and sorry I could not travel both." />
+        <QuickNotesCard light={mode === "light"} note="Two roads diverged in a yellow wood and sorry I could not travel both." />
       </Slot>
       <Slot code="DAGEN-015" span="md:col-span-6">
         <DayAgendaCard
+          light={mode === "light"}
           dayName="Monday"
           dayNumber="15"
           items={[
@@ -389,7 +390,7 @@ export default function NothingPlaygroundPage() {
         />
       </Slot>
       <Slot code="MRKET-017" span="md:col-span-6">
-        <MarketDotsChartCard change="+2.5" changePct="0.017%" symbol="NASDAQ" value="$14,972" />
+        <MarketDotsChartCard light={mode === "light"} change="+2.5" changePct="0.017%" symbol="NASDAQ" value="$14,972" />
       </Slot>
 
       <Slot code="DBTIM-018" span="md:col-span-3">
