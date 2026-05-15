@@ -1,4 +1,5 @@
 import { Label } from "../primitives/Label";
+import { DotText } from "../primitives/DotText";
 import { Tile } from "../primitives/Tile";
 
 type ActivityPulseCardProps = {
@@ -27,7 +28,7 @@ export function ActivityPulseCard({
         </div>
 
         <div className="mt-7 flex items-end gap-2">
-          <div className="text-[64px] leading-[0.9] tracking-[-0.04em]">{steps}</div>
+          <DotText value={steps} className="text-[64px] leading-[0.9] tracking-[-0.04em]" />
           <div className={`pb-2 text-[18px] leading-none tracking-[0.14em] ${mutedTone}`}>STEPS</div>
         </div>
       </div>
@@ -61,7 +62,7 @@ export function ActivityPulseCard({
         </svg>
 
         <div className="absolute bottom-5 right-5 text-[22px] leading-none tracking-[0.01em]">
-          <span>{bpm}</span>
+          <DotText value={bpm} className="text-[22px] leading-none tracking-[0.01em]" />
           <span className={`ml-1 text-[18px] tracking-[0.12em] ${mutedTone}`}>BPM</span>
         </div>
       </div>

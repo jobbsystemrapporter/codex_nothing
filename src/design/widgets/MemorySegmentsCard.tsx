@@ -1,4 +1,5 @@
 import { Label } from "../primitives/Label";
+import { DotText } from "../primitives/DotText";
 import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { Tile } from "../primitives/Tile";
 
@@ -38,7 +39,7 @@ export function MemorySegmentsCard({
           <button
             className={`rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.1em] ${
               liveEnabled
-                ? "border-[#f97316] text-[#f97316]"
+                ? "border-[var(--danger)] text-[var(--danger)]"
                 : "border-[var(--border)] text-[var(--text-muted)]"
             } ${!liveSupported ? "opacity-50" : ""}`}
             disabled={!liveSupported}
@@ -50,7 +51,7 @@ export function MemorySegmentsCard({
         ) : null}
       </div>
       <div className="mt-4 flex items-end gap-2">
-        <p className="text-[56px] leading-[0.88] tracking-[-0.03em]">{value}</p>
+        <DotText value={value} className="text-[56px] leading-[0.88] tracking-[-0.03em]" />
         <p className={`pb-1 text-[24px] leading-none ${muted}`}>{unit}</p>
       </div>
       <p className={`mt-1 text-[12px] uppercase tracking-[0.12em] ${muted}`}>

@@ -1,5 +1,6 @@
 import { Tile } from "../primitives/Tile";
 import { Label } from "../primitives/Label";
+import { DotText } from "../primitives/DotText";
 
 type StatCardProps = {
   label: string;
@@ -11,12 +12,11 @@ export function StatCard({ label, value, accent }: StatCardProps) {
   return (
     <Tile className="min-h-[160px] flex flex-col justify-between">
       <Label>{label}</Label>
-      <div
-        className="text-5xl font-light leading-none"
+      <DotText
+        value={value}
+        className="text-5xl leading-none"
         style={{ color: accent ? "var(--danger)" : "var(--text)" }}
-      >
-        {value}
-      </div>
+      />
     </Tile>
   );
 }

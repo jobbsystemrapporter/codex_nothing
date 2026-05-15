@@ -25,7 +25,7 @@ export function DayAgendaCard({ dayNumber, dayName, items, light: explicitLight 
     <Tile light={light} className="min-h-[250px] p-4 md:min-h-[280px]">
       <div className="grid gap-4 md:grid-cols-[170px_1fr]">
         <div>
-          <DotMatrixNumber light={light} className="text-[var(--danger)]" size="lg" value={dayNumber} />
+          <DotMatrixNumber light={light} size="lg" value={dayNumber} />
           <p className={`mt-2 text-[14px] uppercase tracking-[0.12em] ${textColor}`}>{dayName}</p>
         </div>
 

@@ -60,7 +60,7 @@ export function NowPlayingEqualizerCard({
 
       <div className="mt-5">
         <div className="h-[3px] w-full rounded-full bg-[var(--border)]">
-          <div className="h-full rounded-full bg-[#f97316]" style={{ width: `${clamped}%` }} />
+          <div className="h-full rounded-full bg-[var(--danger)]" style={{ width: `${clamped}%` }} />
         </div>
         <div className={`mt-2 flex items-center justify-between text-[13px] uppercase tracking-[0.08em] ${muted}`}>
           <span>{start}</span>

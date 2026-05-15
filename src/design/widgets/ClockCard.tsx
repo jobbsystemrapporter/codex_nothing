@@ -1,5 +1,6 @@
 import { Tile } from "../primitives/Tile";
 import { DotText } from "../primitives/DotText";
+import { Label } from "../primitives/Label";
 import { useLiveTime } from "../hooks/useLiveTime";
 
 type ClockCardProps = {
@@ -34,7 +35,7 @@ export function ClockCard({
   return (
     <Tile light={light} className="flex h-full min-h-[410px] flex-col justify-between p-6 md:min-h-[520px]">
       <div className={textTone}>
-        <div className={`nothing-label ${labelTone}`}>{label}</div>
+        <Label className={labelTone}>{label}</Label>
 
         <div className="mt-6 flex items-center gap-3 min-[430px]:gap-4 md:gap-5">
           <DotText

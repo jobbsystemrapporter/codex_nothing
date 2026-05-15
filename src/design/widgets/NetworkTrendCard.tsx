@@ -1,4 +1,5 @@
 import { Label } from "../primitives/Label";
+import { DotText } from "../primitives/DotText";
 import { useWidgetTheme } from "../hooks/useWidgetTheme";
 import { Tile } from "../primitives/Tile";
 
@@ -17,13 +18,13 @@ export function NetworkTrendCard({
 }: NetworkTrendCardProps) {
   const light = useWidgetTheme(explicitLight);
   const muted = light ? "text-[rgba(17,17,17,0.58)]" : "text-[var(--text-muted)]";
-  const stroke = light ? "rgba(249,115,22,0.85)" : "rgba(249,115,22,0.95)";
+  const stroke = light ? "rgba(17,17,17,0.72)" : "rgba(245,245,245,0.72)";
 
   return (
     <Tile light={light} className="min-h-[180px] p-4">
       <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>NETWORK</Label>
       <div className="mt-4 flex items-end gap-2">
-        <p className="text-[52px] leading-[0.88] tracking-[-0.03em]">{value}</p>
+        <DotText value={value} className="text-[52px] leading-[0.88] tracking-[-0.03em]" />
         <p className={`pb-1 text-[18px] ${muted}`}>{unit}</p>
       </div>
 

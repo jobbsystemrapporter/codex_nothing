@@ -26,7 +26,7 @@ export function ToggleTile({ icon, label, active, onToggle }: ToggleTileProps) {
         aria-pressed={Boolean(active)}
         className={clsx(
           `${light ? "nothing-card-light" : "nothing-card"} aspect-square rounded-full p-5 flex items-center justify-center transition-colors`,
-          active ? "text-red-500" : ""
+          active ? "text-[var(--danger)]" : ""
         )}
         onClick={onToggle}
         type="button"
@@ -37,7 +37,7 @@ export function ToggleTile({ icon, label, active, onToggle }: ToggleTileProps) {
   }
 
   return (
-    <CircleTile className={active ? "text-red-500" : ""}>
+    <CircleTile className={active ? "text-[var(--danger)]" : ""}>
       {content}
     </CircleTile>
   );

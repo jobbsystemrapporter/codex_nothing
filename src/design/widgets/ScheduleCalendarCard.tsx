@@ -32,7 +32,7 @@ export function ScheduleCalendarCard({
       <div className="grid gap-6 md:grid-cols-[1.2fr_1fr]">
         <div className="space-y-6">
           {meetings.map((item) => (
-            <article className="border-l-2 border-[var(--white-soft)]/80 pl-4" key={item.title}>
+            <article className="border-l-2 border-[var(--border)] pl-4" key={item.title}>
               <h3 className="text-[22px] leading-[1.1] tracking-[-0.02em]">{item.title}</h3>
               <p className={`mt-2 text-[13px] uppercase tracking-[0.12em] leading-[1.2] ${mutedTone}`}>
                 {item.location}

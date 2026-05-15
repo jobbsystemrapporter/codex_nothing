@@ -1,4 +1,5 @@
 import { Label } from "../primitives/Label";
+import { DotText } from "../primitives/DotText";
 import { Tile } from "../primitives/Tile";
 
 type WeatherMatrixCardProps = {
@@ -29,7 +30,7 @@ export function WeatherMatrixCard({
     <Tile light={light} className="flex min-h-[260px] flex-col justify-between p-5">
       <div className="flex items-center justify-between">
         <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>{city}</Label>
-        <div className="text-[56px] leading-none tracking-[-0.04em]">{temp}</div>
+        <DotText value={temp} className="text-[56px] leading-none tracking-[-0.04em]" />
       </div>
 
       <div className="grid justify-start gap-1.5">
@@ -48,7 +49,7 @@ export function WeatherMatrixCard({
         ))}
       </div>
 
-      <div className="text-[14px] uppercase tracking-[0.12em] leading-[1.2] opacity-80">
+      <div className="text-[14px] uppercase tracking-[0.12em] leading-[1.2] text-[var(--text-muted)]">
         {condition}
       </div>
     </Tile>

@@ -27,21 +27,21 @@ const FALLBACK = {
 
 function mapCode(code: number): { label: string; variant: WeatherDotsVariant; accent: string } {
   if (code === 0 || code === 1) {
-    return { label: "Clear", variant: "sunny", accent: "#B07B2A" };
+    return { label: "Clear", variant: "sunny", accent: "var(--white)" };
   }
   if (code === 2 || code === 3 || code === 45 || code === 48) {
-    return { label: "Cloudy", variant: "cloudy", accent: "#6B7280" };
+    return { label: "Cloudy", variant: "cloudy", accent: "var(--text-muted)" };
   }
   if ([51, 53, 55, 56, 57, 61, 63, 65, 80, 81, 82].includes(code)) {
-    return { label: "Rain", variant: "showers", accent: "#0EA5E9" };
+    return { label: "Rain", variant: "showers", accent: "var(--white)" };
   }
   if ([71, 73, 75, 77, 85, 86].includes(code)) {
-    return { label: "Snow", variant: "cloudy", accent: "#93C5FD" };
+    return { label: "Snow", variant: "cloudy", accent: "var(--white)" };
   }
   if ([95, 96, 99].includes(code)) {
-    return { label: "Storm", variant: "showers", accent: "#EF4444" };
+    return { label: "Storm", variant: "showers", accent: "var(--danger)" };
   }
-  return { label: "Weather", variant: "cloudy", accent: "#B07B2A" };
+  return { label: "Weather", variant: "cloudy", accent: "var(--white)" };
 }
 
 export function LiveWeatherAccentCard({

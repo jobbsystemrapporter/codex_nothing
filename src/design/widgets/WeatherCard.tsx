@@ -18,12 +18,12 @@ export function WeatherCard({
   return (
     <Tile light={light} className="flex min-h-[160px] flex-col justify-between">
       <div className="flex items-center justify-between">
-        <DotText value={temp} className="text-4xl font-medium" />
-        <Cloud className="h-5 w-5 opacity-70" strokeWidth={1.75} />
+        <DotText value={temp} className="text-4xl" />
+        <Cloud className="h-5 w-5 text-[var(--text-muted)]" strokeWidth={1.75} />
       </div>
 
       <div>
-        <div className="text-sm uppercase tracking-[0.14em] opacity-70">
+        <div className="text-sm uppercase tracking-[0.14em] text-[var(--text-muted)]">
           {label}
         </div>
         <div className="mt-2 text-base uppercase tracking-[0.08em]">

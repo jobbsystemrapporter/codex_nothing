@@ -40,7 +40,7 @@ export function BatterySegmentsCard({
               className="h-[9px] w-[12px] rounded-[2px]"
               style={{
                 backgroundColor: on
-                  ? "#22c55e"
+                  ? "var(--white)"
                   : light
                     ? "rgba(17,17,17,0.14)"
                     : "rgba(245,245,245,0.18)",

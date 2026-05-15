@@ -21,7 +21,7 @@ export function EventCard({
         <div className="mt-5 text-lg uppercase tracking-[0.08em]">{title}</div>
       </div>
 
-      <div className="text-sm uppercase tracking-[0.08em] opacity-70">
+      <div className="text-sm uppercase tracking-[0.08em] text-[var(--text-muted)]">
         {time}
         {secondary ? ` · ${secondary}` : ""}
       </div>

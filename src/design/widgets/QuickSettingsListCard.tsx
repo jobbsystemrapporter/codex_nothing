@@ -44,7 +44,7 @@ export function QuickSettingsListCard({
               role="switch"
               style={{
                 backgroundColor: item.enabled
-                  ? "#f97316"
+                  ? "var(--danger)"
                   : light
                     ? "rgba(17,17,17,0.1)"
                     : "rgba(245,245,245,0.1)",

@@ -42,7 +42,7 @@ export function StorageMultiRowCard({
                     width: `${pct}%`,
                     backgroundColor:
                       row.tone === "orange"
-                        ? "#f59e0b"
+                        ? "var(--danger)"
                         : light
                           ? "#111111"
                           : "#f5f5f5",

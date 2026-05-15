@@ -1,6 +1,7 @@
 import { Tile } from "../primitives/Tile";
 import { ProgressDots } from "../primitives/ProgressDots";
 import { Label } from "../primitives/Label";
+import { DotText } from "../primitives/DotText";
 
 type StorageCardProps = {
   used: string;
@@ -14,11 +15,11 @@ export function StorageCard({ used, total, progress }: StorageCardProps) {
       <Label>Manage files</Label>
 
       <div className="mt-6 flex items-end gap-2">
-        <div className="text-7xl font-light leading-none">{used}</div>
-        <div className="pb-2 text-2xl opacity-80">GB</div>
+        <DotText value={used} className="text-7xl leading-none" />
+        <div className="pb-2 text-2xl text-[var(--text-muted)]">GB</div>
       </div>
 
-      <div className="mt-1 text-sm uppercase tracking-[0.14em] text-red-500">
+      <div className="mt-1 text-sm uppercase tracking-[0.14em] text-[var(--danger)]">
         Used
       </div>
 

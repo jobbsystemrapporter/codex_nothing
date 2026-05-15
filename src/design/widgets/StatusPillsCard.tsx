@@ -15,8 +15,8 @@ type StatusPillsCardProps = {
 export function StatusPillsCard({ pills, light: explicitLight }: StatusPillsCardProps) {
   const light = useWidgetTheme(explicitLight);
   const getTone = (tone: StatusPill["tone"]) => {
-    if (tone === "green") return { border: "#65a30d", text: "#65a30d" };
-    if (tone === "orange") return { border: "#f97316", text: "#f97316" };
+    if (tone === "green") return { border: "var(--text-muted)", text: "var(--text-muted)" };
+    if (tone === "orange") return { border: "var(--danger)", text: "var(--danger)" };
     return {
       border: light ? "rgba(17,17,17,0.24)" : "rgba(245,245,245,0.24)",
       text: light ? "rgba(17,17,17,0.8)" : "rgba(245,245,245,0.8)",

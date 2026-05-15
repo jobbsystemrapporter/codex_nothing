@@ -1,6 +1,7 @@
 import { DotText } from "../primitives/DotText";
 import { Label } from "../primitives/Label";
 import { Tile } from "../primitives/Tile";
+import { useWidgetTheme } from "../hooks/useWidgetTheme";
 
 type DotBarTimeCardProps = {
   time: string;
@@ -9,6 +10,8 @@ type DotBarTimeCardProps = {
 };
 
 export function DotBarTimeCard({ time, total, active }: DotBarTimeCardProps) {
+  const light = useWidgetTheme();
+  const inactive = light ? "rgba(17,17,17,0.14)" : "rgba(255,255,255,0.16)";
   return (
     <Tile className="min-h-[170px] p-4">
       <div className="flex items-center gap-1.5">
@@ -18,7 +21,7 @@ export function DotBarTimeCard({ time, total, active }: DotBarTimeCardProps) {
             className="h-2.5 w-2.5 rounded-full"
             style={{
               backgroundColor:
-                index < active ? (index > total - 4 ? "var(--danger)" : "var(--white)") : "rgba(255,255,255,0.16)",
+                index < active ? (index > total - 4 ? "var(--danger)" : "var(--white)") : inactive,
             }}
           />
         ))}
