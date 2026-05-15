@@ -270,10 +270,10 @@ export default function NothingPlaygroundPage() {
       </div>
 
       <Slot code="DNUMB-001" span="md:col-span-4">
-        <DotNumberBoardCard />
+        <DotNumberBoardCard light={mode === "light"} />
       </Slot>
       <Slot code="DNUMB-002" span="md:col-span-4">
-        <DotNumberBoardCard light />
+        <DotNumberBoardCard light={mode === "light"} />
       </Slot>
       <Slot code="LVWTH-003" span="md:col-span-4">
         <LiveWeatherAccentCard />
@@ -343,13 +343,13 @@ export default function NothingPlaygroundPage() {
         <WeatherStatusCard condition="Showers" temp="14" variant="showers" />
       </Slot>
       <Slot code="WLLOC-007" span="md:col-span-2">
-        <WeatherStatusCard light message="Location permission needed" variant="location" />
+        <WeatherStatusCard light={mode === "light"} message="Location permission needed" variant="location" />
       </Slot>
       <Slot code="WLSUN-008" span="md:col-span-2">
-        <WeatherStatusCard condition="Sunny day" light temp="22" variant="sunny" />
+        <WeatherStatusCard light={mode === "light"} condition="Sunny day" temp="22" variant="sunny" />
       </Slot>
       <Slot code="WLSHW-009" span="md:col-span-2">
-        <WeatherStatusCard condition="Showers" light temp="14" variant="showers" />
+        <WeatherStatusCard light={mode === "light"} condition="Showers" temp="14" variant="showers" />
       </Slot>
 
       <Slot code="CLKDG-010" span="md:col-span-3">
@@ -362,7 +362,7 @@ export default function NothingPlaygroundPage() {
         <TempRangeCircleCard high="15°" low="7°" />
       </Slot>
       <Slot code="STRAK-013" span="md:col-span-3">
-        <StepsStreakCard light streak="3" totalSteps="5,543" />
+        <StepsStreakCard light={mode === "light"} streak="3" totalSteps="5,543" />
       </Slot>
 
       <Slot code="QNOTE-014" span="md:col-span-6">
@@ -449,7 +449,7 @@ export default function NothingPlaygroundPage() {
           </div>
           <div className="mt-5 grid gap-2">
             <Pill className="text-[11px] uppercase tracking-[0.08em]">Torch</Pill>
-            <Pill light className="text-[11px] uppercase tracking-[0.08em] text-[var(--card-light-text)]">
+            <Pill light={mode === "light"} className="text-[11px] uppercase tracking-[0.08em] text-[var(--card-light-text)]">
               Data saver
             </Pill>
             <Pill className="text-[11px] uppercase tracking-[0.08em]">Hotspot</Pill>
@@ -517,7 +517,7 @@ export default function NothingPlaygroundPage() {
         <WeatherMatrixCard city="HONG KONG" condition="PARTY CLOUDY" temp="29°" />
       </Slot>
       <Slot code="WTHCR-032" span="md:col-span-3">
-        <WeatherCard light temp="12°C" label="Stockholm" condition="Cloudy Day" />
+        <WeatherCard light={mode === "light"} temp="12°C" label="Stockholm" condition="Cloudy Day" />
       </Slot>
       <Slot code="LOCRD-033" span="md:col-span-3">
         <CircleTile className="min-h-[200px] border-0 bg-[var(--danger)] p-6 text-[var(--white)]">
