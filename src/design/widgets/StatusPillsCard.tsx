@@ -1,4 +1,6 @@
 import { Label } from "../primitives/Label";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { Tile } from "../primitives/Tile";
 
 type StatusPill = {
@@ -11,7 +13,9 @@ type StatusPillsCardProps = {
   light?: boolean;
 };
 
-export function StatusPillsCard({ pills, light = true }: StatusPillsCardProps) {
+export function StatusPillsCard({ pills, light: explicitLight }: StatusPillsCardProps) {
+  const theme = useContext(ThemeContext);
+  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
   const getTone = (tone: StatusPill["tone"]) => {
     if (tone === "green") return { border: "#65a30d", text: "#65a30d" };
     if (tone === "orange") return { border: "#f97316", text: "#f97316" };

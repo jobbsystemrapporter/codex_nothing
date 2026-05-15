@@ -1,5 +1,7 @@
 import { DotText } from "../primitives/DotText";
 import { Label } from "../primitives/Label";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { Tile } from "../primitives/Tile";
 
 type BatterySegmentsCardProps = {
@@ -15,8 +17,10 @@ export function BatterySegmentsCard({
   bars = 20,
   active = 17,
   eta,
-  light = true,
+  light: explicitLight,
 }: BatterySegmentsCardProps) {
+  const theme = useContext(ThemeContext);
+  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
   const muted = light ? "text-[rgba(17,17,17,0.56)]" : "text-[var(--text-muted)]";
 
   return (

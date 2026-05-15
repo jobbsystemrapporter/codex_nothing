@@ -1,5 +1,7 @@
 import { DotText } from "../primitives/DotText";
 import { Label } from "../primitives/Label";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { Tile } from "../primitives/Tile";
 
 type StepsStreakCardProps = {
@@ -11,8 +13,10 @@ type StepsStreakCardProps = {
 export function StepsStreakCard({
   totalSteps,
   streak,
-  light = true,
+  light: explicitLight,
 }: StepsStreakCardProps) {
+  const theme = useContext(ThemeContext);
+  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
   const muted = light ? "text-[rgba(17,17,17,0.62)]" : "text-[var(--text-muted)]";
 
   return (

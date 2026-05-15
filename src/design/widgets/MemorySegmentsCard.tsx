@@ -1,4 +1,6 @@
 import { Label } from "../primitives/Label";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { Tile } from "../primitives/Tile";
 
 type MemorySegmentsCardProps = {
@@ -21,11 +23,13 @@ export function MemorySegmentsCard({
   total,
   activeSegments = 12,
   segments = 16,
-  light = true,
+  light: explicitLight,
   liveEnabled = false,
   liveSupported = false,
   onToggleLive,
 }: MemorySegmentsCardProps) {
+  const theme = useContext(ThemeContext);
+  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
   const muted = light ? "text-[rgba(17,17,17,0.58)]" : "text-[var(--text-muted)]";
 
   return (

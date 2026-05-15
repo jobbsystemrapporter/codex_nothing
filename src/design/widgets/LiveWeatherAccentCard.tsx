@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { DotMatrixNumber } from "../primitives/DotMatrixNumber";
 import { Label } from "../primitives/Label";
 import { Tile } from "../primitives/Tile";
 import { WeatherDotsIcon, type WeatherDotsVariant } from "../primitives/WeatherDotsIcon";
+import { ThemeContext } from "../context/ThemeContext";
 import { useLiveTime } from "../hooks/useLiveTime";
 
 type LiveWeatherAccentCardProps = {
@@ -48,6 +49,8 @@ export function LiveWeatherAccentCard({
   fallbackLat = FALLBACK.lat,
   fallbackLon = FALLBACK.lon,
 }: LiveWeatherAccentCardProps) {
+  const theme = useContext(ThemeContext);
+  const light = theme.isLight;
   const [coords, setCoords] = useState({ lat: fallbackLat, lon: fallbackLon, city: fallbackCity });
   const [weather, setWeather] = useState<WeatherState | null>(null);
   const [loading, setLoading] = useState(true);
@@ -124,7 +127,7 @@ export function LiveWeatherAccentCard({
 
       <div className="mt-4 flex items-start gap-5">
         <div className="w-[92px] shrink-0">
-          <WeatherDotsIcon size="sm" variant={descriptor.variant} />
+          <WeatherDotsIcon light={light} size="sm" variant={descriptor.variant} />
         </div>
         <div className="min-w-0 flex-1">
           <DotMatrixNumber

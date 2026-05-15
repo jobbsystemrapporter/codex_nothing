@@ -1,4 +1,6 @@
 import clsx from "clsx";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { CircleTile } from "../primitives/CircleTile";
 import { useLiveTime } from "../hooks/useLiveTime";
 
@@ -15,10 +17,12 @@ export function AnalogClockCard({
   hourDeg,
   minuteDeg,
   secondDeg,
-  light = true,
+  light: explicitLight,
   live = true,
   className,
 }: AnalogClockCardProps) {
+  const theme = useContext(ThemeContext);
+  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
   const { now } = useLiveTime("sv-SE");
   const sec = now.getSeconds();
   const min = now.getMinutes();

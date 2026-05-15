@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { Tile } from "../primitives/Tile";
 
 type NowPlayingCardProps = {
@@ -6,10 +8,12 @@ type NowPlayingCardProps = {
 };
 
 export function NowPlayingCard({ track, artist }: NowPlayingCardProps) {
+  const theme = useContext(ThemeContext);
+  const light = theme.isLight;
   return (
     <Tile className="min-h-[170px] p-4">
       <div className="flex items-start justify-between">
-        <div className="nothing-card flex h-14 w-14 items-center justify-center rounded-[12px] text-[24px]">
+        <div className={`${light ? "nothing-card-light" : "nothing-card"} flex h-14 w-14 items-center justify-center rounded-[12px] text-[24px]`}>
           ♫
         </div>
         <div className="text-[22px] leading-none opacity-80">◓</div>

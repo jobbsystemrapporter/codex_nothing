@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { CircleTile } from "../primitives/CircleTile";
 
 type TempRangeCircleCardProps = {
@@ -9,8 +11,10 @@ type TempRangeCircleCardProps = {
 export function TempRangeCircleCard({
   high,
   low,
-  light = true,
+  light: explicitLight,
 }: TempRangeCircleCardProps) {
+  const theme = useContext(ThemeContext);
+  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
   const tone = light ? "text-[var(--card-light-text)]" : "text-[var(--text)]";
   const muted = light ? "text-[rgba(17,17,17,0.62)]" : "text-[var(--text-muted)]";
 
