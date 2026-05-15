@@ -31,6 +31,15 @@ body,
   min-height: 100%;
 }
 
+[data-theme="light"] {
+  --text: #111111;
+  --text-muted: rgba(17, 17, 17, 0.64);
+  --text-soft: rgba(17, 17, 17, 0.44);
+  --white: #111111;
+  --white-soft: #333333;
+  --border: rgba(17, 17, 17, 0.12);
+}
+
 body {
   font-family: Inter, "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   letter-spacing: 0.01em;
