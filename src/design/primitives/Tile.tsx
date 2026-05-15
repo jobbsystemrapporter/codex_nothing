@@ -1,12 +1,16 @@
 import clsx from "clsx";
-import type { PropsWithChildren } from "react";
+import { useContext, type PropsWithChildren } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 type TileProps = PropsWithChildren<{
   className?: string;
   light?: boolean;
 }>;
 
-export function Tile({ className, light, children }: TileProps) {
+export function Tile({ className, light: explicitLight, children }: TileProps) {
+  const theme = useContext(ThemeContext);
+  const light = explicitLight !== undefined ? explicitLight : theme.isLight;
+
   return (
     <div
       className={clsx(

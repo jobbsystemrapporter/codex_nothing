@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   Wifi,
 } from "lucide-react";
+import { ThemeProvider } from "../design/context/ThemeContext";
 import { WidgetGrid } from "../design/layout/WidgetGrid";
 import { CircleTile } from "../design/primitives/CircleTile";
 import { DotText } from "../design/primitives/DotText";
@@ -211,7 +212,8 @@ export default function NothingPlaygroundPage() {
   };
 
   return (
-    <WidgetGrid mode={mode} shadow={shadow} id="main-content">
+    <ThemeProvider mode={mode}>
+      <WidgetGrid mode={mode} shadow={shadow} id="main-content">
       <div className="md:col-span-12">
         <Tile className="p-4 md:p-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -580,5 +582,6 @@ export default function NothingPlaygroundPage() {
         <WeatherMatrixCard city="LONDON" condition="SHOWERS" temp="12°" />
       </Slot>
     </WidgetGrid>
+    </ThemeProvider>
   );
 }

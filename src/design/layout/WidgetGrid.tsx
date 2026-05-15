@@ -15,6 +15,7 @@ export function WidgetGrid({
   return (
     <div
       id={id}
+      data-theme={mode}
       className={`${mode === "light" ? "nothing-canvas-soft" : "nothing-grid-bg"} ${
         shadow === "off" ? "nothing-no-shadow" : ""
       } min-h-screen p-6 md:p-10`}
