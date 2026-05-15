@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Doto:wght@400..700&family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-  --bg: #000000;
-  --surface: #0a0a0a;
-  --surface-2: #111111;
-  --surface-3: #1a1a1a;
-  --border: rgba(255, 255, 255, 0.08);
+  --bg: #2A2A2A;
+  --surface: #333333;
+  --surface-2: #3D3D3D;
+  --surface-3: #4A4A4A;
+  --border: rgba(255, 255, 255, 0.12);
   --white: #f5f5f5;
   --white-soft: #ededed;
   --text: #f5f5f5;
