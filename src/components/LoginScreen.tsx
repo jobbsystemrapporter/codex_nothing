@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import { DotText } from "../design/primitives/DotText";
 
 export function LoginScreen() {
-  const { login, register } = useAuth();
+  const { login, register, demoLogin } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +28,11 @@ export function LoginScreen() {
     }
   };
 
+  const handleDemo = () => {
+    setError("");
+    demoLogin();
+  };
+
   return (
     <div className="nothing-grid-bg flex min-h-screen items-center justify-center p-6">
       <div className="w-full max-w-[420px]">
@@ -38,7 +43,7 @@ export function LoginScreen() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="nothing-card p-6 md:p-8">
+        <form onSubmit={handleSubmit} className="nothing-card p-6 @min-[360px]:p-8">
           <div className="mb-6">
             <label className="nothing-label mb-2 block">Username</label>
             <input
@@ -99,13 +104,16 @@ export function LoginScreen() {
           </div>
 
           {isLogin && (
-            <div className="mt-4 text-center">
+            <div className="mt-5 border-t border-[var(--border)] pt-5 text-center">
+              <p className="mb-3 text-[11px] uppercase tracking-[0.12em] text-[var(--text-muted)]">
+                No server? No problem.
+              </p>
               <button
                 type="button"
-                onClick={() => { setUsername("demo"); setPassword("demo123"); }}
-                className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-muted)] hover:text-[var(--danger)]"
+                onClick={handleDemo}
+                className="w-full rounded-full bg-[var(--white)] px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--bg)] transition-opacity hover:opacity-90"
               >
-                Use demo account
+                Enter Demo Mode
               </button>
             </div>
           )}
