@@ -7,6 +7,7 @@ type TaskbarProps = {
   activeWindow: string | null;
   onRestore: (id: string) => void;
   onOpenLauncher: () => void;
+  onOpenSettings?: () => void;
   currentTime: Date;
   user: { displayName: string } | null;
   onLogout: () => void;
@@ -17,7 +18,7 @@ function getAppInitial(type: string): string {
   return type.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ")[0]?.[0] ?? "?";
 }
 
-export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, currentTime, user, onLogout, isMobile }: TaskbarProps) {
+export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, onOpenSettings, currentTime, user, onLogout, isMobile }: TaskbarProps) {
   const timeStr = currentTime.toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit", hour12: false });
   const dateStr = currentTime.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }).toUpperCase();
   const minimized = windows.filter((w) => w.minimized);
@@ -26,12 +27,22 @@ export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, curr
     const recentWindows = windows.slice(-4);
     return (
       <div className="fixed bottom-0 left-0 right-0 z-[200] flex items-center justify-between border-t border-[var(--border)] bg-[var(--bg)]/95 px-3 py-2 backdrop-blur-md">
-        <button
-          onClick={onOpenLauncher}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--surface-2)] ring-1 ring-[var(--border)] transition-colors active:scale-95"
-        >
-          <span className="text-[18px]">◩</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={onOpenLauncher}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--surface-2)] ring-1 ring-[var(--border)] transition-colors active:scale-95"
+          >
+            <span className="text-[18px]">◩</span>
+          </button>
+          {onOpenSettings && (
+            <button
+              onClick={onOpenSettings}
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--surface-2)] text-[13px] text-[var(--text-muted)] ring-1 ring-[var(--border)] transition-colors active:scale-95"
+            >
+              ⚙
+            </button>
+          )}
+        </div>
 
         <div className="flex min-w-0 flex-1 items-center justify-center gap-1.5 overflow-x-auto px-2 scrollbar-hide">
           {recentWindows.map((win) => (

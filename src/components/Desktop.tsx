@@ -182,25 +182,25 @@ export function Desktop() {
       ) : (
         // Desktop: floating windows
         <>
-          {/* Desktop Icons */}
-          <div className="absolute left-4 top-4 flex flex-col gap-4">
+          {/* Desktop Icons — bottom left, above taskbar */}
+          <div className="absolute bottom-16 left-4 flex flex-col gap-3">
             <button
               onClick={() => setShowLauncher(true)}
-              className="flex flex-col items-center gap-2 rounded-[18px] p-3 transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+              className="flex flex-col items-center gap-1.5 rounded-[14px] p-2 transition-colors hover:bg-[rgba(255,255,255,0.06)]"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-[var(--surface-2)] ring-1 ring-[var(--border)]">
-                <span className="text-[20px]">◩</span>
+              <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[var(--surface-2)] ring-1 ring-[var(--border)]">
+                <span className="text-[18px]">◩</span>
               </div>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Apps</span>
+              <span className="text-[10px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Apps</span>
             </button>
             <button
               onClick={() => setShowSettings(true)}
-              className="flex flex-col items-center gap-2 rounded-[18px] p-3 transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+              className="flex flex-col items-center gap-1.5 rounded-[14px] p-2 transition-colors hover:bg-[rgba(255,255,255,0.06)]"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-[var(--surface-2)] ring-1 ring-[var(--border)]">
-                <span className="text-[18px]">⚙</span>
+              <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[var(--surface-2)] ring-1 ring-[var(--border)]">
+                <span className="text-[16px]">⚙</span>
               </div>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Settings</span>
+              <span className="text-[10px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Settings</span>
             </button>
           </div>
 
@@ -229,6 +229,7 @@ export function Desktop() {
         activeWindow={activeWindow}
         onRestore={restoreWindow}
         onOpenLauncher={() => setShowLauncher(true)}
+        onOpenSettings={() => setShowSettings(true)}
         currentTime={currentTime}
         user={user}
         onLogout={logout}
