@@ -33,33 +33,33 @@ export function ClockCard({
   const metaTone = light ? "text-[rgba(17,17,17,0.78)]" : "text-[var(--text-muted)]";
 
   return (
-    <Tile light={light} className="flex h-full min-h-[260px] flex-col justify-between p-5 @min-[360px]:min-h-[520px] @min-[360px]:p-6">
+    <Tile light={light} className="flex h-full min-h-[220px] flex-col justify-between p-4 @min-[360px]:min-h-[520px] @min-[360px]:p-6">
       <div className={textTone}>
         <Label className={labelTone}>{label}</Label>
 
-        <div className="mt-6 flex items-center gap-3 @min-[300px]:gap-4 @min-[360px]:gap-5">
+        <div className="mt-4 @min-[360px]:mt-6 flex items-center gap-1.5 @min-[240px]:gap-2 @min-[300px]:gap-3 @min-[360px]:gap-5">
           <DotText
             value={hours}
-            className="text-[62px] leading-[0.84] tracking-[0.01em] @min-[300px]:text-[70px] @min-[360px]:text-[96px]"
+            className="text-[28px] @min-[240px]:text-[36px] @min-[300px]:text-[48px] @min-[360px]:text-[62px] @min-[400px]:text-[70px] @min-[500px]:text-[96px] leading-[0.84] tracking-[0.01em]"
           />
           <DotText
             value=":"
-            className="text-[48px] leading-[0.84] tracking-[0.01em] @min-[300px]:text-[56px] @min-[360px]:text-[78px]"
+            className="text-[22px] @min-[240px]:text-[28px] @min-[300px]:text-[38px] @min-[360px]:text-[48px] @min-[400px]:text-[56px] @min-[500px]:text-[78px] leading-[0.84] tracking-[0.01em]"
           />
           <DotText
             value={minutes}
-            className="text-[62px] leading-[0.84] tracking-[0.01em] @min-[300px]:text-[70px] @min-[360px]:text-[96px]"
+            className="text-[28px] @min-[240px]:text-[36px] @min-[300px]:text-[48px] @min-[360px]:text-[62px] @min-[400px]:text-[70px] @min-[500px]:text-[96px] leading-[0.84] tracking-[0.01em]"
           />
         </div>
 
-        <DotText value={displayDate} className={`mt-7 text-[20px] leading-[1] @min-[300px]:text-[23px] @min-[360px]:mt-8 @min-[360px]:text-[30px] ${metaTone}`} />
+        <DotText value={displayDate} className={`mt-4 @min-[360px]:mt-7 text-[14px] @min-[240px]:text-[17px] @min-[300px]:text-[20px] @min-[360px]:text-[23px] @min-[500px]:text-[30px] leading-[1] ${metaTone}`} />
       </div>
 
       {note ? (
-        <div className="pt-6 @min-[360px]:pt-8">
-          <DotText value={note} className={`text-[19px] leading-[1] @min-[300px]:text-[22px] @min-[360px]:text-[29px] ${metaTone}`} />
+        <div className="pt-4 @min-[360px]:pt-8">
+          <DotText value={note} className={`text-[14px] @min-[240px]:text-[16px] @min-[300px]:text-[19px] @min-[360px]:text-[22px] @min-[500px]:text-[29px] leading-[1] ${metaTone}`} />
           {noteTime ? (
-            <DotText value={noteTime} className={`mt-1 text-[17px] leading-[1] @min-[300px]:text-[19px] @min-[360px]:text-[25px] ${metaTone}`} />
+            <DotText value={noteTime} className={`mt-1 text-[12px] @min-[240px]:text-[14px] @min-[300px]:text-[17px] @min-[360px]:text-[19px] @min-[500px]:text-[25px] leading-[1] ${metaTone}`} />
           ) : null}
         </div>
       ) : null}
