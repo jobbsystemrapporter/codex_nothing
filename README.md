@@ -4,8 +4,6 @@
 
 [![Deploy](https://github.com/jobbsystemrapporter/codex_nothing/actions/workflows/deploy-gh-pages.yml/badge.svg)](https://github.com/jobbsystemrapporter/codex_nothing/actions/workflows/deploy-gh-pages.yml)
 
-![Codex Nothing Desktop](docs/screenshots/screenshot.png)
-
 ---
 
 ## What is this?
