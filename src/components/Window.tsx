@@ -111,10 +111,10 @@ export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdat
         style={{ zIndex, minHeight: instance.h }}
         onClick={onFocus}
       >
-        {/* Floating close button */}
+        {/* Floating close button — small, semi-transparent, sits in corner */}
         <button
           onClick={(e) => { e.stopPropagation(); onClose(); }}
-          className="absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--surface-2)]/80 text-[13px] text-[var(--text-muted)] ring-1 ring-[var(--border)] backdrop-blur-sm transition-colors active:bg-[var(--danger)] active:text-white"
+          className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--surface-2)]/60 text-[10px] text-[var(--text-muted)] ring-1 ring-[var(--border)] backdrop-blur-sm transition-colors active:bg-[var(--danger)] active:text-white"
         >
           ×
         </button>

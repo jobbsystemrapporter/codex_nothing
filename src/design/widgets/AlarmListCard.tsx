@@ -67,7 +67,7 @@ export function AlarmListCard({ light: explicitLight }: AlarmListCardProps) {
             <button
               onClick={() => toggle(alarm.id)}
               className={clsx(
-                "relative h-6 w-10 rounded-full transition-colors",
+                "relative !min-h-0 !min-w-0 h-6 w-10 rounded-full transition-colors",
                 alarm.active ? "bg-[var(--danger)]" : light ? "bg-[rgba(17,17,17,0.14)]" : "bg-[rgba(255,255,255,0.14)]"
               )}
             >

@@ -14,6 +14,7 @@ const MARGIN = 24;
 const GAP = 16;
 
 function createDefaultWindows(vw: number, vh: number): WidgetInstance[] {
+  const isMobile = vw <= 768;
   const availableWidth = vw - MARGIN * 2;
   const availableHeight = vh - MARGIN - TASKBAR_HEIGHT - 20;
 
@@ -21,16 +22,26 @@ function createDefaultWindows(vw: number, vh: number): WidgetInstance[] {
   const cols = availableWidth >= 1200 ? 3 : availableWidth >= 800 ? 2 : 1;
   const colWidth = Math.floor((availableWidth - (cols - 1) * GAP) / cols);
 
-  // Window size presets
-  const sizes: Record<string, { w: number; h: number }> = {
-    ClockCard: { w: colWidth, h: Math.min(420, Math.floor(availableHeight * 0.55)) },
-    LiveWeatherAccentCard: { w: colWidth, h: Math.min(260, Math.floor(availableHeight * 0.32)) },
-    QuickNotesCard: { w: colWidth, h: Math.min(220, Math.floor(availableHeight * 0.28)) },
-    ScheduleCalendarCard: { w: colWidth, h: Math.min(340, Math.floor(availableHeight * 0.42)) },
-    BatterySegmentsCard: { w: colWidth, h: Math.min(190, Math.floor(availableHeight * 0.25)) },
-    NetworkTrendCard: { w: colWidth, h: Math.min(190, Math.floor(availableHeight * 0.25)) },
-    NowPlayingEqualizerCard: { w: colWidth, h: Math.min(220, Math.floor(availableHeight * 0.28)) },
-  };
+  // Window size presets — mobile gets much more compact heights
+  const sizes: Record<string, { w: number; h: number }> = isMobile
+    ? {
+        ClockCard: { w: colWidth, h: 240 },
+        LiveWeatherAccentCard: { w: colWidth, h: 170 },
+        QuickNotesCard: { w: colWidth, h: 150 },
+        ScheduleCalendarCard: { w: colWidth, h: 220 },
+        BatterySegmentsCard: { w: colWidth, h: 130 },
+        NetworkTrendCard: { w: colWidth, h: 130 },
+        NowPlayingEqualizerCard: { w: colWidth, h: 150 },
+      }
+    : {
+        ClockCard: { w: colWidth, h: Math.min(420, Math.floor(availableHeight * 0.55)) },
+        LiveWeatherAccentCard: { w: colWidth, h: Math.min(260, Math.floor(availableHeight * 0.32)) },
+        QuickNotesCard: { w: colWidth, h: Math.min(220, Math.floor(availableHeight * 0.28)) },
+        ScheduleCalendarCard: { w: colWidth, h: Math.min(340, Math.floor(availableHeight * 0.42)) },
+        BatterySegmentsCard: { w: colWidth, h: Math.min(190, Math.floor(availableHeight * 0.25)) },
+        NetworkTrendCard: { w: colWidth, h: Math.min(190, Math.floor(availableHeight * 0.25)) },
+        NowPlayingEqualizerCard: { w: colWidth, h: Math.min(220, Math.floor(availableHeight * 0.28)) },
+      };
 
   const windows: WidgetInstance[] = [
     { id: "clock-1", type: "ClockCard", x: 0, y: 0, w: 0, h: 0, minimized: false },
@@ -76,16 +87,11 @@ export function Desktop() {
   const { mode } = useTheme();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const viewport = useViewportSize();
-  const [windows, setWindows] = useState<WidgetInstance[]>(() => {
-    const initial = createDefaultWindows(viewport.width, viewport.height).map((w) =>
+  const [windows, setWindows] = useState<WidgetInstance[]>(() =>
+    createDefaultWindows(viewport.width, viewport.height).map((w) =>
       clampWindow(w, viewport.width, viewport.height)
-    );
-    // Mobile: only show the first default window; minimize the rest
-    if (viewport.width <= 768) {
-      return initial.map((w, i) => ({ ...w, minimized: i !== 0 }));
-    }
-    return initial;
-  });
+    )
+  );
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
   const [showLauncher, setShowLauncher] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -99,9 +105,14 @@ export function Desktop() {
   const openWindow = (type: string) => {
     if (isMobile) {
       const id = `${type}-${Date.now()}`;
+      const compactHeights: Record<string, number> = {
+        ClockCard: 240, LiveWeatherAccentCard: 170, QuickNotesCard: 150,
+        ScheduleCalendarCard: 220, BatterySegmentsCard: 130, NetworkTrendCard: 130,
+        NowPlayingEqualizerCard: 150,
+      };
       setWindows((prev) => [
-        ...prev.map((w) => ({ ...w, minimized: true })),
-        { id, type, x: 0, y: 0, w: viewport.width, h: Math.floor(viewport.height * 0.75), minimized: false },
+        ...prev,
+        { id, type, x: 0, y: 0, w: viewport.width, h: compactHeights[type] ?? 180, minimized: false },
       ]);
       setActiveWindow(id);
       setShowLauncher(false);
@@ -132,13 +143,7 @@ export function Desktop() {
   };
 
   const restoreWindow = (id: string) => {
-    if (isMobile) {
-      setWindows((prev) =>
-        prev.map((w) => (w.id === id ? { ...w, minimized: false } : { ...w, minimized: true }))
-      );
-    } else {
-      setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, minimized: false } : w)));
-    }
+    setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, minimized: false } : w)));
     setActiveWindow(id);
   };
 
