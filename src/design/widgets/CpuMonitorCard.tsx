@@ -36,12 +36,12 @@ export function CpuMonitorCard({ light: explicitLight }: CpuMonitorCardProps) {
   const avg = Math.round(cores.reduce((a, b) => a + b, 0) / cores.length);
 
   return (
-    <Tile light={light} className="flex flex-col gap-4">
+    <Tile light={light} className="flex flex-col gap-3 @min-[360px]:gap-4">
       <div className="flex items-center justify-between">
         <Label>CPU Monitor</Label>
-        <DotText value={`${avg}%`} className="text-[16px]" />
+        <DotText value={`${avg}%`} className="text-[14px] @min-[360px]:text-[16px]" />
       </div>
-      <div className="flex items-end gap-1.5 h-24">
+      <div className="flex items-end gap-1 @min-[360px]:gap-1.5 h-20 @min-[360px]:h-24">
         {cores.map((v, i) => (
           <div key={i} className="flex-1 flex flex-col justify-end gap-1">
             <div
@@ -51,7 +51,7 @@ export function CpuMonitorCard({ light: explicitLight }: CpuMonitorCardProps) {
               )}
               style={{ height: `${v}%` }}
             />
-            <span className="text-center text-[9px] uppercase tracking-[0.08em] text-[var(--text-muted)]">{i + 1}</span>
+            <span className="text-center text-[8px] @min-[360px]:text-[9px] uppercase tracking-[0.08em] text-[var(--text-muted)]">{i + 1}</span>
           </div>
         ))}
       </div>

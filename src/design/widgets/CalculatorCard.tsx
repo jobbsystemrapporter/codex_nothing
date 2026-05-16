@@ -56,13 +56,13 @@ export function CalculatorCard({ light: explicitLight }: CalculatorCardProps) {
   ];
 
   return (
-    <Tile light={light} className="flex flex-col gap-4">
+    <Tile light={light} className="flex flex-col gap-3 @min-[360px]:gap-4">
       <Label>Calculator</Label>
-      <div className={clsx("rounded-[14px] px-4 py-5 text-right", light ? "bg-[rgba(17,17,17,0.06)]" : "bg-[rgba(255,255,255,0.06)]")}>
-        <DotText value={display} className="text-[32px] leading-[1] tracking-[0.02em]" />
+      <div className={clsx("rounded-[14px] px-3 @min-[360px]:px-4 py-4 @min-[360px]:py-5 text-right", light ? "bg-[rgba(17,17,17,0.06)]" : "bg-[rgba(255,255,255,0.06)]")}>
+        <DotText value={display} className="text-[24px] @min-[360px]:text-[32px] leading-[1] tracking-[0.02em]" />
         {op && <span className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-muted)]">{op}</span>}
       </div>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-4 gap-1.5 @min-[360px]:gap-2">
         {keys.flat().map((k) => {
           const isOp = ["÷", "×", "-", "+", "="].includes(k);
           const isFn = ["C", "±", "%"].includes(k);
@@ -80,7 +80,7 @@ export function CalculatorCard({ light: explicitLight }: CalculatorCardProps) {
                 else handleNum(k);
               }}
               className={clsx(
-                "rounded-full py-3 text-[15px] font-medium transition-colors",
+                "rounded-full py-2.5 @min-[360px]:py-3 text-[13px] @min-[360px]:text-[15px] font-medium transition-colors",
                 wide && "col-span-2",
                 isOp && !light && "bg-[var(--white)] text-[var(--bg)] hover:opacity-90",
                 isOp && light && "bg-[var(--card-light-text)] text-[var(--card-light)] hover:opacity-90",

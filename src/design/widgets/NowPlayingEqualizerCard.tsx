@@ -29,21 +29,21 @@ export function NowPlayingEqualizerCard({
   const muted = light ? "text-[rgba(17,17,17,0.58)]" : "text-[var(--text-muted)]";
 
   return (
-    <Tile light={light} className="min-h-[210px] p-5">
+    <Tile light={light} className="min-h-[210px] p-4 @min-[360px]:p-5">
       <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>NOW PLAYING</Label>
-      <div className="mt-5 grid grid-cols-[1fr_auto] items-end gap-4">
+      <div className="mt-4 @min-[360px]:mt-5 grid grid-cols-1 @min-[400px]:grid-cols-[1fr_auto] items-end gap-3 @min-[400px]:gap-4">
         <div>
-          <p className="text-[24px] min-[430px]:text-[34px] md:text-[46px] leading-[0.9] tracking-[-0.03em]">{title}</p>
+          <p className="text-[24px] @min-[300px]:text-[34px] @min-[360px]:text-[46px] leading-[0.9] tracking-[-0.03em]">{title}</p>
           <p className={`mt-2 text-[13px] uppercase tracking-[0.1em] ${muted}`}>
             {artist}
             {genre ? ` · ${genre}` : ""}
           </p>
         </div>
-        <div className="flex h-[62px] items-end gap-1.5">
+        <div className="flex h-[50px] @min-[360px]:h-[62px] items-end gap-1 @min-[360px]:gap-1.5">
           {bars.map((height, index) => (
             <span
               key={index}
-              className="nothing-eq-bar w-[4px] rounded-[2px]"
+              className="nothing-eq-bar w-[3px] @min-[360px]:w-[4px] rounded-[2px]"
               style={
                 {
                   "--eq-base": `${height}px`,
@@ -58,11 +58,11 @@ export function NowPlayingEqualizerCard({
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4 @min-[360px]:mt-5">
         <div className="h-[3px] w-full rounded-full bg-[var(--border)]">
           <div className="h-full rounded-full bg-[var(--danger)]" style={{ width: `${clamped}%` }} />
         </div>
-        <div className={`mt-2 flex items-center justify-between text-[13px] uppercase tracking-[0.08em] ${muted}`}>
+        <div className={`mt-2 flex items-center justify-between text-[12px] @min-[360px]:text-[13px] uppercase tracking-[0.08em] ${muted}`}>
           <span>{start}</span>
           <span>{end}</span>
         </div>

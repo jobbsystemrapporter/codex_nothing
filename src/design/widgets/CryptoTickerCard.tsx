@@ -39,19 +39,19 @@ export function CryptoTickerCard({ light: explicitLight }: CryptoTickerCardProps
   const active = prices[activeIndex];
 
   return (
-    <Tile light={light} className="flex flex-col gap-4">
+    <Tile light={light} className="flex flex-col gap-3 @min-[360px]:gap-4">
       <Label>Crypto Ticker</Label>
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="flex items-center justify-between gap-2">
+        <div className="min-w-0">
           <span className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-muted)]">{active.symbol}</span>
           <DotText
             value={`$${active.price >= 1 ? active.price.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : active.price.toFixed(4)}`}
-            className="mt-1 text-[36px] leading-[1] tracking-[0.02em]"
+            className="mt-1 text-[24px] @min-[300px]:text-[30px] @min-[360px]:text-[36px] leading-[1] tracking-[0.02em]"
           />
         </div>
         <span
           className={clsx(
-            "rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em]",
+            "shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em]",
             active.change >= 0
               ? "bg-[var(--white)] text-[var(--bg)]"
               : "bg-[var(--danger)] text-white"
@@ -60,13 +60,13 @@ export function CryptoTickerCard({ light: explicitLight }: CryptoTickerCardProps
           {active.change >= 0 ? "+" : ""}{active.change}%
         </span>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-1.5 @min-[360px]:gap-2">
         {prices.map((c, i) => (
           <button
             key={c.symbol}
             onClick={() => setActiveIndex(i)}
             className={clsx(
-              "flex-1 rounded-full py-2 text-[10px] uppercase tracking-[0.1em] transition-all",
+              "flex-1 rounded-full py-1.5 @min-[360px]:py-2 text-[9px] @min-[360px]:text-[10px] uppercase tracking-[0.1em] transition-all",
               i === activeIndex
                 ? light
                   ? "bg-[var(--card-light-text)] text-[var(--card-light)]"

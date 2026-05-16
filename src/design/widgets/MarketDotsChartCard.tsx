@@ -26,7 +26,7 @@ export function MarketDotsChartCard({
   const textColor = light ? "text-[rgba(17,17,17,0.8)]" : "text-[var(--white-soft)]";
 
   return (
-    <Tile light={light} className="min-h-[180px] p-4 md:min-h-[280px]">
+    <Tile light={light} className="min-h-[180px] p-4 @min-[360px]:min-h-[280px]">
       <div className="flex items-start justify-between gap-3">
         <div>
           <DotText value={symbol.toUpperCase()} className="text-[34px] leading-[0.95] tracking-[0.02em]" />

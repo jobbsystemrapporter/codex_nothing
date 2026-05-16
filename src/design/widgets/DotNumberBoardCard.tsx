@@ -12,7 +12,7 @@ export function DotNumberBoardCard({ light: explicitLight }: DotNumberBoardCardP
   const muted = light ? "text-[rgba(17,17,17,0.62)]" : "text-[var(--text-muted)]";
 
   return (
-    <Tile light={light} className="min-h-[220px] p-5 md:p-6">
+    <Tile light={light} className="min-h-[220px] p-5 @min-[360px]:p-6">
       <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>Dot matrix set</Label>
 
       <DotMatrixNumber

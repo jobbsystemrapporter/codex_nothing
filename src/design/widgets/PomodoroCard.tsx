@@ -85,8 +85,8 @@ export function PomodoroCard({ light: explicitLight, minutes = 25 }: PomodoroCar
         </div>
       </div>
 
-      <div className="relative flex items-center justify-center py-4">
-        <svg className="h-40 w-40 -rotate-90" viewBox="0 0 100 100">
+      <div className="relative flex items-center justify-center py-2 @min-[360px]:py-4">
+        <svg className="h-28 w-28 @min-[300px]:h-36 @min-[300px]:w-36 @min-[400px]:h-40 @min-[400px]:w-40 -rotate-90" viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="42" fill="none" strokeWidth="4" className={light ? "stroke-[rgba(17,17,17,0.1)]" : "stroke-[rgba(255,255,255,0.1)]"} />
           <circle
             cx="50"
@@ -102,21 +102,21 @@ export function PomodoroCard({ light: explicitLight, minutes = 25 }: PomodoroCar
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <DotText value={formatTime(secondsLeft)} className="text-[36px] leading-[1] tracking-[0.02em]" />
+          <DotText value={formatTime(secondsLeft)} className="text-[28px] @min-[300px]:text-[32px] @min-[400px]:text-[36px] leading-[1] tracking-[0.02em]" />
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-3">
+      <div className="flex items-center justify-center gap-2 @min-[360px]:gap-3 pb-1">
         <button
           onClick={reset}
-          className="rounded-full px-5 py-2 text-[11px] uppercase tracking-[0.12em] ring-1 ring-[var(--border)] text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-2)]"
+          className="rounded-full px-4 @min-[360px]:px-5 py-2 text-[10px] @min-[360px]:text-[11px] uppercase tracking-[0.12em] ring-1 ring-[var(--border)] text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-2)]"
         >
           Reset
         </button>
         <button
           onClick={toggle}
           className={clsx(
-            "rounded-full px-6 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] transition-opacity hover:opacity-90",
+            "rounded-full px-5 @min-[360px]:px-6 py-2 text-[10px] @min-[360px]:text-[11px] font-semibold uppercase tracking-[0.08em] transition-opacity hover:opacity-90",
             running
               ? "bg-[var(--danger)] text-white"
               : light

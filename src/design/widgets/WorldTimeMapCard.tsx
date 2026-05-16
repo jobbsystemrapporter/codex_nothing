@@ -31,8 +31,8 @@ export function WorldTimeMapCard({ items }: WorldTimeMapCardProps) {
   const dotOn = light ? "rgba(17,17,17,0.52)" : "rgba(255,255,255,0.52)";
   const dotOff = light ? "rgba(17,17,17,0.08)" : "rgba(255,255,255,0.05)";
   return (
-    <Tile className="min-h-[200px] p-4 md:min-h-[300px]">
-      <div className="grid gap-4 md:grid-cols-[180px_1fr]">
+    <Tile className="min-h-[200px] p-4 @min-[360px]:min-h-[300px]">
+      <div className="grid gap-4 @min-[360px]:grid-cols-[180px_1fr]">
         <div className="grid gap-4">
           {items.map((item) => (
             <div key={item.city}>

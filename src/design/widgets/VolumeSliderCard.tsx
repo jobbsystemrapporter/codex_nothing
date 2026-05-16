@@ -16,7 +16,7 @@ export function VolumeSliderCard({ light: explicitLight }: VolumeSliderCardProps
   const muted = volume === 0;
 
   return (
-    <Tile light={light} className="flex flex-col gap-4">
+    <Tile light={light} className="flex flex-col gap-3 @min-[360px]:gap-4">
       <div className="flex items-center justify-between">
         <Label>Volume</Label>
         <button
@@ -26,8 +26,8 @@ export function VolumeSliderCard({ light: explicitLight }: VolumeSliderCardProps
           {muted ? <VolumeX className="h-4 w-4" strokeWidth={1.5} /> : <Volume2 className="h-4 w-4" strokeWidth={1.5} />}
         </button>
       </div>
-      <div className="flex items-center gap-4">
-        <div className="relative h-48 w-6 rounded-full bg-[var(--surface)] ring-1 ring-[var(--border)]">
+      <div className="flex items-center gap-3 @min-[360px]:gap-4">
+        <div className="relative h-40 @min-[360px]:h-48 w-5 @min-[360px]:w-6 rounded-full bg-[var(--surface)] ring-1 ring-[var(--border)]">
           <div
             className={clsx("absolute bottom-0 left-0 right-0 rounded-full transition-all", light ? "bg-[var(--card-light-text)]" : "bg-[var(--white)]")}
             style={{ height: `${volume}%` }}
@@ -43,7 +43,7 @@ export function VolumeSliderCard({ light: explicitLight }: VolumeSliderCardProps
           />
         </div>
         <div className="flex flex-1 flex-col items-center justify-center gap-2">
-          <DotText value={String(volume)} className="text-[28px] min-[430px]:text-[36px] md:text-[48px] leading-[1] tracking-[0.02em]" />
+          <DotText value={String(volume)} className="text-[28px] @min-[300px]:text-[36px] @min-[360px]:text-[48px] leading-[1] tracking-[0.02em]" />
           <span className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-muted)]">%</span>
         </div>
       </div>

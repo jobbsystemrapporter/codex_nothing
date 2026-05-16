@@ -27,19 +27,19 @@ export function WeatherMatrixCard({
   const dotOff = light ? "rgba(17,17,17,0.14)" : "rgba(255,255,255,0.08)";
 
   return (
-    <Tile light={light} className="flex min-h-[180px] flex-col justify-between p-5">
+    <Tile light={light} className="flex min-h-[180px] flex-col justify-between p-4 @min-[360px]:p-5">
       <div className="flex items-center justify-between">
         <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>{city}</Label>
-        <DotText value={temp} className="text-[32px] min-[430px]:text-[44px] md:text-[56px] leading-none tracking-[-0.04em]" />
+        <DotText value={temp} className="text-[32px] @min-[300px]:text-[44px] @min-[360px]:text-[56px] leading-none tracking-[-0.04em]" />
       </div>
 
-      <div className="grid justify-start gap-1.5">
+      <div className="grid justify-start gap-1 @min-[360px]:gap-1.5">
         {cloudPattern.map((row, rowIndex) => (
-          <div className="flex gap-1.5" key={`${row}-${rowIndex}`}>
+          <div className="flex gap-1 @min-[360px]:gap-1.5" key={`${row}-${rowIndex}`}>
             {row.split("").map((cell, cellIndex) => (
               <span
                 key={`${rowIndex}-${cellIndex}`}
-                className="h-2.5 w-2.5 rounded-full"
+                className="h-2 w-2 @min-[360px]:h-2.5 @min-[360px]:w-2.5 rounded-full"
                 style={{
                   backgroundColor: cell === "1" ? dotColor : dotOff,
                 }}
@@ -49,7 +49,7 @@ export function WeatherMatrixCard({
         ))}
       </div>
 
-      <div className="text-[14px] uppercase tracking-[0.12em] leading-[1.2] text-[var(--text-muted)]">
+      <div className="text-[12px] @min-[360px]:text-[14px] uppercase tracking-[0.12em] leading-[1.2] text-[var(--text-muted)]">
         {condition}
       </div>
     </Tile>

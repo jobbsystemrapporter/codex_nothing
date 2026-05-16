@@ -33,33 +33,33 @@ export function ClockCard({
   const metaTone = light ? "text-[rgba(17,17,17,0.78)]" : "text-[var(--text-muted)]";
 
   return (
-    <Tile light={light} className="flex h-full min-h-[260px] flex-col justify-between p-5 md:min-h-[520px] md:p-6">
+    <Tile light={light} className="flex h-full min-h-[260px] flex-col justify-between p-5 @min-[360px]:min-h-[520px] @min-[360px]:p-6">
       <div className={textTone}>
         <Label className={labelTone}>{label}</Label>
 
-        <div className="mt-6 flex items-center gap-3 min-[430px]:gap-4 md:gap-5">
+        <div className="mt-6 flex items-center gap-3 @min-[300px]:gap-4 @min-[360px]:gap-5">
           <DotText
             value={hours}
-            className="text-[62px] leading-[0.84] tracking-[0.01em] min-[430px]:text-[70px] md:text-[96px]"
+            className="text-[62px] leading-[0.84] tracking-[0.01em] @min-[300px]:text-[70px] @min-[360px]:text-[96px]"
           />
           <DotText
             value=":"
-            className="text-[48px] leading-[0.84] tracking-[0.01em] min-[430px]:text-[56px] md:text-[78px]"
+            className="text-[48px] leading-[0.84] tracking-[0.01em] @min-[300px]:text-[56px] @min-[360px]:text-[78px]"
           />
           <DotText
             value={minutes}
-            className="text-[62px] leading-[0.84] tracking-[0.01em] min-[430px]:text-[70px] md:text-[96px]"
+            className="text-[62px] leading-[0.84] tracking-[0.01em] @min-[300px]:text-[70px] @min-[360px]:text-[96px]"
           />
         </div>
 
-        <DotText value={displayDate} className={`mt-7 text-[20px] leading-[1] min-[430px]:text-[23px] md:mt-8 md:text-[30px] ${metaTone}`} />
+        <DotText value={displayDate} className={`mt-7 text-[20px] leading-[1] @min-[300px]:text-[23px] @min-[360px]:mt-8 @min-[360px]:text-[30px] ${metaTone}`} />
       </div>
 
       {note ? (
-        <div className="pt-6 md:pt-8">
-          <DotText value={note} className={`text-[19px] leading-[1] min-[430px]:text-[22px] md:text-[29px] ${metaTone}`} />
+        <div className="pt-6 @min-[360px]:pt-8">
+          <DotText value={note} className={`text-[19px] leading-[1] @min-[300px]:text-[22px] @min-[360px]:text-[29px] ${metaTone}`} />
           {noteTime ? (
-            <DotText value={noteTime} className={`mt-1 text-[17px] leading-[1] min-[430px]:text-[19px] md:text-[25px] ${metaTone}`} />
+            <DotText value={noteTime} className={`mt-1 text-[17px] leading-[1] @min-[300px]:text-[19px] @min-[360px]:text-[25px] ${metaTone}`} />
           ) : null}
         </div>
       ) : null}

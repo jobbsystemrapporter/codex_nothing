@@ -26,18 +26,18 @@ export function ScreenTimeCard({ light: explicitLight }: ScreenTimeCardProps) {
   const avg = useMemo(() => (days.reduce((a, b) => a + b.hours, 0) / days.length).toFixed(1), []);
 
   return (
-    <Tile light={light} className="flex flex-col gap-4">
+    <Tile light={light} className="flex flex-col gap-3 @min-[360px]:gap-4">
       <div className="flex items-center justify-between">
         <Label>Screen Time</Label>
-        <DotText value={`${total}H`} className="text-[16px]" />
+        <DotText value={`${total}H`} className="text-[14px] @min-[360px]:text-[16px]" />
       </div>
-      <div className="flex items-end gap-2 h-28">
+      <div className="flex items-end gap-1 @min-[360px]:gap-2 h-24 @min-[360px]:h-28">
         {days.map((d, i) => {
           const pct = (d.hours / max) * 100;
           const isHigh = d.hours > 6;
           return (
-            <div key={i} className="flex-1 flex flex-col items-center justify-end gap-2">
-              <span className="text-[10px] text-[var(--text-muted)]">{d.hours}h</span>
+            <div key={i} className="flex-1 flex flex-col items-center justify-end gap-1 @min-[360px]:gap-2">
+              <span className="text-[9px] @min-[360px]:text-[10px] text-[var(--text-muted)]">{d.hours}h</span>
               <div
                 className={clsx(
                   "w-full rounded-full transition-all",
@@ -45,7 +45,7 @@ export function ScreenTimeCard({ light: explicitLight }: ScreenTimeCardProps) {
                 )}
                 style={{ height: `${pct}%` }}
               />
-              <span className="text-[10px] uppercase tracking-[0.08em] text-[var(--text-muted)]">{d.day}</span>
+              <span className="text-[9px] @min-[360px]:text-[10px] uppercase tracking-[0.08em] text-[var(--text-muted)]">{d.day}</span>
             </div>
           );
         })}

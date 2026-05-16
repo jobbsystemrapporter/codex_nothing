@@ -113,7 +113,7 @@ export function LiveWeatherAccentCard({
   const descriptor = useMemo(() => mapCode(weather?.code ?? 3), [weather?.code]);
 
   return (
-    <Tile className="flex h-full min-h-[200px] flex-col p-4 md:min-h-[260px] md:p-5">
+    <Tile className="flex h-full min-h-[200px] flex-col p-4 @min-[360px]:min-h-[260px] @min-[360px]:p-5">
       <div className="flex items-start justify-between gap-3">
         <div>
           <Label>Live Weather</Label>

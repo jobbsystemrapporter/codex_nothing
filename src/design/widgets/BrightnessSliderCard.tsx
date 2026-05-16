@@ -15,7 +15,7 @@ export function BrightnessSliderCard({ light: explicitLight }: BrightnessSliderC
   const [brightness, setBrightness] = useState(72);
 
   return (
-    <Tile light={light} className="flex flex-col gap-4">
+    <Tile light={light} className="flex flex-col gap-3 @min-[360px]:gap-4">
       <div className="flex items-center justify-between">
         <Label>Brightness</Label>
         {brightness > 50 ? (
@@ -25,8 +25,8 @@ export function BrightnessSliderCard({ light: explicitLight }: BrightnessSliderC
         )}
       </div>
       <div className="flex flex-col gap-3">
-        <DotText value={String(brightness)} className="text-[28px] min-[430px]:text-[36px] md:text-[48px] leading-[1] tracking-[0.02em]" />
-        <div className="relative h-3 w-full rounded-full bg-[var(--surface)] ring-1 ring-[var(--border)]">
+        <DotText value={String(brightness)} className="text-[28px] @min-[300px]:text-[36px] @min-[360px]:text-[48px] leading-[1] tracking-[0.02em]" />
+        <div className="relative h-2.5 @min-[360px]:h-3 w-full rounded-full bg-[var(--surface)] ring-1 ring-[var(--border)]">
           <div
             className={clsx("absolute left-0 top-0 bottom-0 rounded-full transition-all", light ? "bg-[var(--card-light-text)]" : "bg-[var(--white)]")}
             style={{ width: `${brightness}%` }}

@@ -51,19 +51,19 @@ export function MemorySegmentsCard({
         ) : null}
       </div>
       <div className="mt-4 flex items-end gap-2">
-        <DotText value={value} className="text-[32px] min-[430px]:text-[44px] md:text-[56px] leading-[0.88] tracking-[-0.03em]" />
+        <DotText value={value} className="text-[32px] @min-[300px]:text-[44px] @min-[360px]:text-[56px] leading-[0.88] tracking-[-0.03em]" />
         <p className={`pb-1 text-[24px] leading-none ${muted}`}>{unit}</p>
       </div>
       <p className={`mt-1 text-[12px] uppercase tracking-[0.12em] ${muted}`}>
         / {total} GB USED
       </p>
-      <div className="mt-5 flex gap-1.5">
+      <div className="mt-5 flex flex-wrap gap-1 @min-[360px]:gap-1.5">
         {Array.from({ length: segments }).map((_, index) => {
           const on = index < activeSegments;
           return (
             <span
               key={index}
-              className="h-[9px] w-[14px] rounded-[2px]"
+              className="h-[7px] w-[10px] @min-[360px]:h-[9px] @min-[360px]:w-[14px] rounded-[2px]"
               style={{
                 backgroundColor: on
                   ? light

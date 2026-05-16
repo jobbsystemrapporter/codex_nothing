@@ -21,23 +21,23 @@ export function ActivityPulseCard({
 
   return (
     <Tile light={light} className="min-h-[180px] overflow-hidden p-0">
-      <div className="p-5">
+      <div className="p-4 @min-[360px]:p-5">
         <div className="flex items-center justify-between gap-3">
           <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>{activity}</Label>
-          <div className={`text-[16px] leading-none tracking-[0.08em] ${mutedTone}`}>{duration}</div>
+          <div className={`text-[14px] @min-[360px]:text-[16px] leading-none tracking-[0.08em] ${mutedTone}`}>{duration}</div>
         </div>
 
-        <div className="mt-7 flex items-end gap-2">
-          <DotText value={steps} className="text-[36px] min-[430px]:text-[48px] md:text-[64px] leading-[0.9] tracking-[-0.04em]" />
-          <div className={`pb-2 text-[18px] leading-none tracking-[0.14em] ${mutedTone}`}>STEPS</div>
+        <div className="mt-5 @min-[360px]:mt-7 flex items-end gap-2">
+          <DotText value={steps} className="text-[36px] @min-[300px]:text-[48px] @min-[360px]:text-[64px] leading-[0.9] tracking-[-0.04em]" />
+          <div className={`pb-1.5 @min-[360px]:pb-2 text-[16px] leading-none tracking-[0.14em] ${mutedTone}`}>STEPS</div>
         </div>
       </div>
 
-      <div className="relative border-t border-[var(--border)] px-5 py-4">
+      <div className="relative border-t border-[var(--border)] px-4 @min-[360px]:px-5 py-3 @min-[360px]:py-4">
         <svg
           aria-hidden
-          className="h-[72px] w-full"
-          preserveAspectRatio="none"
+          className="h-[60px] @min-[360px]:h-[72px] w-full"
+          preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 320 72"
         >
           <path
@@ -61,9 +61,9 @@ export function ActivityPulseCard({
           <circle cx="190" cy="38" fill="var(--danger)" r="5.5" />
         </svg>
 
-        <div className="absolute bottom-5 right-5 text-[22px] leading-none tracking-[0.01em]">
-          <DotText value={bpm} className="text-[22px] leading-none tracking-[0.01em]" />
-          <span className={`ml-1 text-[18px] tracking-[0.12em] ${mutedTone}`}>BPM</span>
+        <div className="absolute bottom-3 @min-[360px]:bottom-5 right-4 @min-[360px]:right-5 text-[20px] @min-[360px]:text-[22px] leading-none tracking-[0.01em]">
+          <DotText value={bpm} className="text-[20px] @min-[360px]:text-[22px] leading-none tracking-[0.01em]" />
+          <span className={`ml-1 text-[16px] @min-[360px]:text-[18px] tracking-[0.12em] ${mutedTone}`}>BPM</span>
         </div>
       </div>
     </Tile>

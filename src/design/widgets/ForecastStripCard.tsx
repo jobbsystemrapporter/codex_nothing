@@ -34,7 +34,7 @@ export function ForecastStripCard({
           <p className="mt-1 text-[13px] text-[var(--text-muted)]">{subtitle}</p>
         </div>
         <div className="text-right">
-          <DotText value={temp} className="text-[28px] min-[430px]:text-[38px] md:text-[50px] leading-[0.9] tracking-[0.01em]" />
+          <DotText value={temp} className="text-[28px] @min-[300px]:text-[38px] @min-[360px]:text-[50px] leading-[0.9] tracking-[0.01em]" />
           {onAction ? (
             <button
               className="mt-1 text-[10px] uppercase tracking-[0.12em] text-[var(--text-muted)] underline-offset-2 hover:underline"

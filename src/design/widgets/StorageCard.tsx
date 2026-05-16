@@ -15,7 +15,7 @@ export function StorageCard({ used, total, progress }: StorageCardProps) {
       <Label>Manage files</Label>
 
       <div className="mt-6 flex items-end gap-2">
-        <DotText value={used} className="text-[36px] min-[430px]:text-5xl md:text-7xl leading-none" />
+        <DotText value={used} className="text-[36px] @min-[300px]:text-5xl @min-[360px]:text-7xl leading-none" />
         <div className="pb-2 text-2xl text-[var(--text-muted)]">GB</div>
       </div>
 
