@@ -65,7 +65,7 @@ const isMobile = useMediaQuery("(max-width: 768px)");
 ### Standalone Widget Mode
 URL query `?widget=ClockCard` renders a single widget (used by Übersicht):
 ```
-https://stemrapporter.github.io/codex_nothing/?widget=ClockCard
+https://jobbsystemrapporter.github.io/codex_nothing/?widget=ClockCard
 ```
 
 ### Widget Settings

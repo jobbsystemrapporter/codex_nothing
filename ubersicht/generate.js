@@ -59,7 +59,7 @@ const widgets = [
   { type: "QuickSettingsListCard", name: "nothing-quick-settings", w: 300, h: 220, title: "Nothing Quick Settings" },
 ];
 
-const baseUrl = "https://stemrapporter.github.io/codex_nothing";
+const baseUrl = "https://jobbsystemrapporter.github.io/codex_nothing";
 
 for (const w of widgets) {
   const dir = path.join(__dirname, "widgets", w.name);

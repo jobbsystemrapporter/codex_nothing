@@ -57,4 +57,4 @@ style: """
 
 ## Offline Mode
 
-Widgets load from `https://stemrapporter.github.io/codex_nothing/`. For offline use, run the web app locally (`npm run dev`) and change the iframe URL to `http://localhost:5173/?widget=ClockCard`.
+Widgets load from `https://jobbsystemrapporter.github.io/codex_nothing/`. For offline use, run the web app locally (`npm run dev`) and change the iframe URL to `http://localhost:5173/?widget=ClockCard`.
