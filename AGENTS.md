@@ -2,11 +2,14 @@
 
 These rules apply to all work in this repository.
 
+> **For widget development:** Read `DESIGN_SYSTEM.md` first — it has copy-paste templates, token reference, and concrete code examples.
+
 ## Core directive
 - Use the Nothing-inspired design layer in `src/design` as the primary system.
 - Do not replace the design language with generic SaaS/agency styling.
 
 ## Source of truth
+- **Design System Guide:** `DESIGN_SYSTEM.md` — templates, tokens, examples
 - Evidence: `src/design/evidence.md`
 - Rules: `src/design/rules.md` and root `rules.md`
 - Tokens: `src/design/tokens/*`

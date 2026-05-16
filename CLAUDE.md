@@ -1,60 +1,79 @@
-# Claude Code — Project Guide
+# Claude Code — Codex Nothing Guide
 
-## Quick Start
+> **Start with:** `DESIGN_SYSTEM.md` — universal reference with widget templates, token tables, and concrete examples.
+
+## Quick Commands
 ```bash
-npm install
 npm run dev      # localhost:5173
-npm run build    # production build → dist/
+npm run build    # dist/
 npm run lint     # eslint
 npm run test     # vitest
 ```
 
-## Design System
-Nothing OS-inspired. Read `src/design/evidence.md`, `src/design/rules.md`, and `src/design/tokens/` before editing styles.
+## Creating a New Widget
 
-### Visual Rules
-- **Palette**: Black/white first. Red only for alerts/active states.
-- **Typography**: Doto (dot-matrix clocks/metrics), Inter (body), Space Grotesk, Space Mono
-- **Widgets**: Use `Tile` + `nothing-card`. Container queries (`@min-[300px]:`) not viewport queries.
-- **No gradients, no decorative shadows.**
+**Step 1:** Read `DESIGN_SYSTEM.md` → copy the widget template
 
-## Adding a Widget
-1. Create component in `src/design/widgets/MyWidgetCard.tsx`
-2. Export from `src/components/WidgetRegistry.tsx`
-3. Add demo to `src/pages/NothingPlaygroundPage.tsx`
-4. Ensure `npm run lint && npm run build` pass
+**Step 2:** Create component in `src/design/widgets/MyWidgetCard.tsx`
 
-## Widget Registry
-`WidgetRegistry.tsx` maps string types to components. Supported types:
-```
-ClockCard, AnalogClockCard, LiveWeatherAccentCard, QuickNotesCard,
-BatterySegmentsCard, NetworkTrendCard, NowPlayingEqualizerCard,
-ScheduleCalendarCard, CalculatorCard, StopwatchCard, AlarmListCard,
-CryptoTickerCard, CpuMonitorCard, ScreenTimeCard, PomodoroCard,
-DiceRollCard, VolumeSliderCard, BrightnessSliderCard, ... (52 total)
+**Step 3:** Register in `src/components/WidgetRegistry.tsx`:
+```tsx
+case "MyWidgetCard": return <MyWidgetCard ... />;
 ```
 
-## Standalone Widget Mode
-Append `?widget=TYPE` to URL to render a single widget (used by Übersicht).
-Example: `https://site.com/?widget=ClockCard`
+**Step 4:** Add demo in `src/pages/NothingPlaygroundPage.tsx`:
+```tsx
+<WidgetCard code="MYWID-001">
+  <WidgetRegistry type="MyWidgetCard" />
+</WidgetCard>
+```
 
-## Desktop vs Mobile
-- Desktop: `useMediaQuery("(max-width: 768px)")` returns false
-  - Windows are absolute-positioned, draggable, resizable
-  - Masonry layout in `Desktop.tsx`
-- Mobile: returns true
-  - Windows are stacked cards in scrollable column
-  - Taskbar has app launcher + settings + recent apps + clock
+**Step 5:** Run `npm run lint && npm run build`
 
-## Übersicht Integration
-macOS desktop widgets via [Übersicht](http://tracesof.net/uebersicht/).
-- Wrappers in `ubersicht/widgets/`
-- Each widget loads via iframe to `/?widget=TYPE`
-- Copy widgets to `~/Library/Application Support/Übersicht/widgets/`
+## Design System Essentials
 
-## Important Context
-- Build target: GitHub Pages (static site)
-- Backend (Express) runs locally only on port 3001
-- Demo mode: login with `demo` / `demo123` works offline
-- Widget settings (opacity, border, shadow, glass) persist in localStorage
-- 52 widgets total, most use hardcoded demo data. Live data: Clock, Weather (Open-Meteo)
+### Tokens (always use these, never hardcode)
+| Token | Use for |
+|-------|---------|
+| `var(--surface-2)` | Card backgrounds |
+| `var(--text)` | Primary text |
+| `var(--text-muted)` | Secondary text |
+| `var(--danger)` | Red accent / active / alert |
+| `var(--border)` | Borders, dividers |
+| `var(--radius-lg)` | Card border-radius (24px) |
+
+### Responsive Strategy
+- **Container queries only:** `@min-[300px]:`, `@min-[360px]:`, `@min-[500px]:`
+- **Never:** `md:`, `lg:`, `sm:`
+- Tile has `container-type: size` built-in
+
+### Typography
+- **Doto:** Clocks, counters, short metrics only (max 3-4 words)
+- **Inter:** Body text, labels, descriptions
+- **Space Grotesk:** Headings
+- **Space Mono:** Code, technical values
+
+## Architecture
+
+### Desktop vs Mobile
+```tsx
+const isMobile = useMediaQuery("(max-width: 768px)");
+```
+- **Desktop:** Absolute-positioned draggable windows, masonry layout
+- **Mobile:** Stacked cards, scrollable column, compact heights
+
+### Standalone Widget Mode
+URL query `?widget=ClockCard` renders a single widget (used by Übersicht):
+```
+https://stemrapporter.github.io/codex_nothing/?widget=ClockCard
+```
+
+### Widget Settings
+Opacity, border, shadow, glass effect — all persisted in localStorage.
+Set via desktop taskbar ⚙ button or mobile taskbar.
+
+## Important Constraints
+- No external UI libraries (Material UI, Chakra, etc.)
+- No gradients, no decorative shadows
+- No viewport media queries inside widgets
+- Keep widget logic pure — side effects in hooks only

@@ -1,37 +1,35 @@
-# GitHub Copilot Instructions — Codex Nothing
+# GitHub Copilot — Codex Nothing Instructions
 
-## Design System
-Nothing OS-inspired design system with strict visual rules:
-- **Colors**: Black/white first. Red (`#ff0000` / `var(--danger)`) only for status/alert/active emphasis
-- **Fonts**: Doto (dot-matrix, limited use), Inter (body), Space Grotesk (headings), Space Mono (code)
-- **Shapes**: Rounded corners (`var(--radius-lg)`), no sharp edges
-- **Effects**: No gradients, no decorative shadows. Subtle borders only.
+> **Primary reference:** `DESIGN_SYSTEM.md` — contains copy-paste widget templates, CSS token table, typography rules, and responsive breakpoint guide.
 
-## Architecture
-- **Frontend**: React 19 + TypeScript + Vite + Tailwind CSS v4.2.2
-- **Backend**: Express + SQLite3 + JWT (local development only)
-- **Deploy**: GitHub Pages via GitHub Actions
+## When Completing a Task
 
-## Widget Development Checklist
-When creating or modifying a widget:
-1. Use `Tile` primitive from `src/design/primitives/Tile.tsx`
-2. Use `useWidgetTheme()` hook for light/dark mode
-3. Use container queries (`@min-[300px]:`) for responsiveness
-4. Base metric font: 24-32px, scale up gradually
-5. Add widget code label in format `ABCDE-000`
-6. Register in `WidgetRegistry.tsx`
-7. Add demo to `NothingPlaygroundPage.tsx`
+### If creating a widget:
+1. Read `DESIGN_SYSTEM.md` → "Snabbstart — Skapa en ny widget"
+2. Copy the template and adapt it
+3. Use `Tile` from `src/design/primitives/Tile.tsx`
+4. Use `useWidgetTheme()` for light/dark support
+5. Use container queries (`@min-[300px]:`) — never `md:`
+6. Register in `src/components/WidgetRegistry.tsx`
+7. Add to `src/pages/NothingPlaygroundPage.tsx`
 8. Run `npm run lint && npm run build`
 
-## Key Files
-- `src/components/Desktop.tsx` — Desktop shell with masonry layout
-- `src/components/Window.tsx` — Draggable/resizable window frame
-- `src/components/WidgetRegistry.tsx` — Widget type → component mapping
-- `src/design/primitives/Tile.tsx` — Card primitive
-- `src/styles/globals.css` — CSS variables and `nothing-card` styles
+### If editing layout:
+1. Read `src/components/Desktop.tsx` for masonry behavior
+2. Read `src/components/Window.tsx` for window chrome
+3. Make minimal changes — affects both desktop and mobile
+
+## Design Tokens (always use these)
+- `var(--bg)` — app background
+- `var(--surface-2)` — card background
+- `var(--text)` — primary text
+- `var(--text-muted)` — secondary text
+- `var(--danger)` — red / alert / active
+- `var(--border)` — borders
+- `var(--radius-lg)` — 24px border radius
 
 ## Constraints
-- Do NOT add external UI libraries (no Material UI, no Chakra, etc.)
-- Do NOT use viewport media queries for widgets (`md:`, `lg:`) — use container queries
-- Do NOT modify AGENTS.md coding rules without updating the corresponding code
-- Keep widget logic pure — no side effects in render
+- No external UI libraries
+- No viewport media queries in widgets
+- No gradients or decorative shadows
+- Doto font: clocks, counters, short metrics ONLY

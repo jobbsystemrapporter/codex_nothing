@@ -1,41 +1,32 @@
-# Nothing OS Design System — Cursor Rules
+# Cursor Rules — Codex Nothing
 
-## Project Overview
-- React + TypeScript + Vite + Tailwind CSS v4.2.2
-- Nothing-inspired design: black/white/red only, Doto font for metrics
+> **Start here:** Read `DESIGN_SYSTEM.md` — it has copy-paste widget templates, all CSS tokens, typography rules, and concrete code examples. This file is a quick reference; DESIGN_SYSTEM.md is the full guide.
+
+## Project
+- React 19 + TypeScript + Vite + Tailwind CSS v4.2.2
+- Nothing OS design: black/white/red only
 - 52 widgets in `src/design/widgets/`
-- Desktop = floating windows / Mobile = stacked cards
 
-## Coding Rules
-- Use Tailwind container queries (`@min-[300px]:`) NOT screen queries (`md:`)
-- Widget codes follow format: `ABCDE-000`
-- Keep layout, primitives, and widget logic separated
-- Reuse tokens from `src/design/tokens/` and primitives from `src/design/primitives/`
-- Never use gradients or decorative shadows unless requested
-- Black/white first; red only for status/alert/active emphasis
+## Non-negotiable Rules
+1. **Container queries only** — `@min-[300px]:`, never `md:` or `lg:`
+2. **Tokens only** — `var(--surface-2)`, never `#1e1e1e`
+3. **Doto font restricted** — clocks, counters, short metrics only
+4. **No gradients, no decorative shadows**
+5. **Red only for alerts/status/active**
 
-## Widget Development
-- All new widgets must use `Tile` primitive with `nothing-card` class
-- Base font size for metrics: 24-32px, scale with `@min-[300px]` / `@min-[360px]`
-- Widgets must be responsive to their container width, not viewport
-- Add new widgets to `src/pages/NothingPlaygroundPage.tsx`
-- Register widgets in `src/components/WidgetRegistry.tsx`
+## Creating a Widget (checklist)
+- [ ] Copy template from `DESIGN_SYSTEM.md`
+- [ ] Use `Tile` + `useWidgetTheme()`
+- [ ] Use container queries for responsive sizing
+- [ ] Register in `WidgetRegistry.tsx`
+- [ ] Add demo to `NothingPlaygroundPage.tsx`
+- [ ] Run `npm run lint && npm run build`
 
-## File Structure
+## File Map
 ```
-src/design/tokens/      — CSS variables
-src/design/primitives/  — Tile, Label, DotText, etc.
-src/design/widgets/     — 52 widget components
-src/components/         — Desktop, Window, Taskbar, AppLauncher
-src/context/            — AuthProvider, WidgetSettingsContext
+DESIGN_SYSTEM.md          ← START HERE (examples + tokens)
+src/design/primitives/    ← Tile, Label, DotText, IconButton
+src/design/widgets/       ← 52 existing widgets (reference)
+src/components/WidgetRegistry.tsx  ← Register widgets
+src/pages/NothingPlaygroundPage.tsx ← Add demos
 ```
-
-## Tech Stack
-- React 19, TypeScript strict
-- Tailwind v4 with `@tailwindcss/vite` plugin
-- Lucide icons only
-- No external UI libraries
-
-## Verification
-- Run `npm run lint` and `npm run build` before committing
-- Keep desktop and mobile behavior stable

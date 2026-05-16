@@ -1,0 +1,18 @@
+# Windsurf Rules — Codex Nothing
+
+Read `DESIGN_SYSTEM.md` before building any widget. It contains copy-paste templates, token reference, and concrete examples.
+
+## Critical Rules
+- Use container queries (`@min-[300px]:`) NOT viewport queries (`md:`)
+- Use CSS tokens (`var(--surface-2)`, `var(--danger)`) NOT hardcoded colors
+- Doto font ONLY for clocks, counters, short metrics
+- Always run `npm run lint && npm run build` before finishing
+
+## Widget Template
+When asked to create a widget, start from the template in `DESIGN_SYSTEM.md` → "Snabbstart — Skapa en ny widget"
+
+## Key Files
+- `DESIGN_SYSTEM.md` — Universal design system reference with examples
+- `src/design/primitives/Tile.tsx` — Card primitive
+- `src/components/WidgetRegistry.tsx` — Register new widgets here
+- `src/pages/NothingPlaygroundPage.tsx` — Add demo here
