@@ -121,8 +121,11 @@ brew install --cask ubersicht
 # 2. Go to your project folder (where you cloned the repo)
 cd ~/Desktop/codex-nothing   # adjust path to where your repo lives
 
-# 3. Copy widgets
-cp -r ubersicht/widgets/* ~/Library/Application\ Support/Übersicht/widgets/
+# 3. Copy one widget at a time (example: clock)
+cp -r ubersicht/widgets/nothing-clock ~/Library/Application\ Support/Übersicht/widgets/
+
+# Or copy all at once:
+# cp -r ubersicht/widgets/* ~/Library/Application\ Support/Übersicht/widgets/
 
 # 4. Done — widgets appear on your desktop
 ```

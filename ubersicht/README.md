@@ -5,15 +5,24 @@ Desktop widgets for macOS using [Übersicht](http://tracesof.net/uebersicht/).
 ## Installation
 
 1. Install Übersicht: `brew install --cask ubersicht` or download from http://tracesof.net/uebersicht/
-2. Go to your project folder where you cloned this repo:
+
+2. **Option A — Terminal (one widget at a time):**
    ```bash
    cd ~/Desktop/codex-nothing   # adjust to your actual repo path
+   cp -r ubersicht/widgets/nothing-clock ~/Library/Application\ Support/Übersicht/widgets/
    ```
-3. Copy widget folders to Übersicht:
-   ```bash
-   cp -r ubersicht/widgets/* ~/Library/Application\ Support/Übersicht/widgets/
-   ```
-4. Each widget auto-loads from the web app — no build step needed
+   Change `nothing-clock` to any widget name from the list below.
+
+3. **Option B — Finder (drag & drop):**
+   - Open `ubersicht/widgets/` in Finder
+   - Pick the widget folder(s) you want
+   - Drag them to `~/Library/Application Support/Übersicht/widgets/`
+
+4. **Option C — Übersicht app:**
+   - Click the Übersicht menubar icon → **Open Widgets Folder**
+   - Drag widget folders into that folder
+
+5. Each widget auto-loads from the web app — no build step needed
 
 ## Widget List
 
