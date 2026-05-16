@@ -40,6 +40,16 @@ import { RecordCircleCard } from "../design/widgets/RecordCircleCard";
 import { DotCountMiniCard } from "../design/widgets/DotCountMiniCard";
 import { WeatherStatusCard } from "../design/widgets/WeatherStatusCard";
 import { ToggleTile } from "../design/widgets/ToggleTile";
+import { CalculatorCard } from "../design/widgets/CalculatorCard";
+import { StopwatchCard } from "../design/widgets/StopwatchCard";
+import { VolumeSliderCard } from "../design/widgets/VolumeSliderCard";
+import { BrightnessSliderCard } from "../design/widgets/BrightnessSliderCard";
+import { CpuMonitorCard } from "../design/widgets/CpuMonitorCard";
+import { CryptoTickerCard } from "../design/widgets/CryptoTickerCard";
+import { AlarmListCard } from "../design/widgets/AlarmListCard";
+import { ScreenTimeCard } from "../design/widgets/ScreenTimeCard";
+import { PomodoroCard } from "../design/widgets/PomodoroCard";
+import { DiceRollCard } from "../design/widgets/DiceRollCard";
 import { Tile } from "../design/primitives/Tile";
 import { Label } from "../design/primitives/Label";
 
@@ -125,6 +135,16 @@ export function WidgetRegistry({ type, light }: RegistryProps) {
     case "DotCountMiniCard": return <DotCountMiniCard value="43465" />;
     case "WeatherStatusCard": return <WeatherStatusCard light={light} variant="sunny" condition="Sunny day" temp="22" />;
     case "ToggleTile": return <ToggleTileDemo />;
+    case "CalculatorCard": return <CalculatorCard light={light} />;
+    case "StopwatchCard": return <StopwatchCard light={light} />;
+    case "VolumeSliderCard": return <VolumeSliderCard light={light} />;
+    case "BrightnessSliderCard": return <BrightnessSliderCard light={light} />;
+    case "CpuMonitorCard": return <CpuMonitorCard light={light} />;
+    case "CryptoTickerCard": return <CryptoTickerCard light={light} />;
+    case "AlarmListCard": return <AlarmListCard light={light} />;
+    case "ScreenTimeCard": return <ScreenTimeCard light={light} />;
+    case "PomodoroCard": return <PomodoroCard light={light} />;
+    case "DiceRollCard": return <DiceRollCard light={light} />;
     default: return <div className="p-4 text-[12px] text-[var(--text-muted)]">Unknown: {type}</div>;
   }
 }

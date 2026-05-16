@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Clock, Cloud, FileText, Activity, Battery, Wifi, Music, CalendarDays, BarChart3, MapPin, HardDrive, Globe, Timer, Sun, Thermometer, Repeat } from "lucide-react";
+import { Clock, Cloud, FileText, Activity, Battery, Wifi, Music, CalendarDays, BarChart3, MapPin, HardDrive, Globe, Timer, Sun, Thermometer, Repeat, Calculator, Volume2, SunDim, Cpu, Bell, Eye, Dices } from "lucide-react";
 
 const apps = [
   { type: "ClockCard", label: "Clock", icon: <Clock className="h-6 w-6" strokeWidth={1.5} /> },
@@ -25,6 +25,16 @@ const apps = [
   { type: "DayAgendaCard", label: "Agenda", icon: <CalendarDays className="h-6 w-6" strokeWidth={1.5} /> },
   { type: "ConnectivityPillsCard", label: "Connect", icon: <Wifi className="h-6 w-6" strokeWidth={1.5} /> },
   { type: "ToggleTile", label: "Tiles", icon: <Repeat className="h-6 w-6" strokeWidth={1.5} /> },
+  { type: "CalculatorCard", label: "Calc", icon: <Calculator className="h-6 w-6" strokeWidth={1.5} /> },
+  { type: "StopwatchCard", label: "Stopwatch", icon: <Timer className="h-6 w-6" strokeWidth={1.5} /> },
+  { type: "VolumeSliderCard", label: "Volume", icon: <Volume2 className="h-6 w-6" strokeWidth={1.5} /> },
+  { type: "BrightnessSliderCard", label: "Bright", icon: <SunDim className="h-6 w-6" strokeWidth={1.5} /> },
+  { type: "CpuMonitorCard", label: "CPU", icon: <Cpu className="h-6 w-6" strokeWidth={1.5} /> },
+  { type: "CryptoTickerCard", label: "Crypto", icon: <BarChart3 className="h-6 w-6" strokeWidth={1.5} /> },
+  { type: "AlarmListCard", label: "Alarms", icon: <Bell className="h-6 w-6" strokeWidth={1.5} /> },
+  { type: "ScreenTimeCard", label: "Usage", icon: <Eye className="h-6 w-6" strokeWidth={1.5} /> },
+  { type: "PomodoroCard", label: "Focus", icon: <Timer className="h-6 w-6" strokeWidth={1.5} /> },
+  { type: "DiceRollCard", label: "Dice", icon: <Dices className="h-6 w-6" strokeWidth={1.5} /> },
 ];
 
 type AppLauncherProps = {
