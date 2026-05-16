@@ -77,6 +77,14 @@ export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, onOp
         >
           <span className="text-[16px]">◩</span>
         </button>
+        {onOpenSettings && (
+          <button
+            onClick={onOpenSettings}
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--surface-2)] text-[13px] text-[var(--text-muted)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--surface-3)]"
+          >
+            ⚙
+          </button>
+        )}
         <div className="flex items-center gap-1 overflow-x-auto">
           {minimized.map((win) => (
             <button

@@ -193,15 +193,6 @@ export function Desktop() {
               </div>
               <span className="text-[10px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Apps</span>
             </button>
-            <button
-              onClick={() => setShowSettings(true)}
-              className="flex flex-col items-center gap-1.5 rounded-[14px] p-2 transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[var(--surface-2)] ring-1 ring-[var(--border)]">
-                <span className="text-[16px]">⚙</span>
-              </div>
-              <span className="text-[10px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Settings</span>
-            </button>
           </div>
 
           {/* Windows */}
