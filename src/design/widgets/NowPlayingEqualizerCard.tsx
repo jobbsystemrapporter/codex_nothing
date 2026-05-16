@@ -33,7 +33,7 @@ export function NowPlayingEqualizerCard({
       <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>NOW PLAYING</Label>
       <div className="mt-5 grid grid-cols-[1fr_auto] items-end gap-4">
         <div>
-          <p className="text-[46px] leading-[0.9] tracking-[-0.03em]">{title}</p>
+          <p className="text-[24px] min-[430px]:text-[34px] md:text-[46px] leading-[0.9] tracking-[-0.03em]">{title}</p>
           <p className={`mt-2 text-[13px] uppercase tracking-[0.1em] ${muted}`}>
             {artist}
             {genre ? ` · ${genre}` : ""}

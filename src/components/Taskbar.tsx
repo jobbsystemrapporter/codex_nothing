@@ -10,27 +10,59 @@ type TaskbarProps = {
   currentTime: Date;
   user: { displayName: string } | null;
   onLogout: () => void;
+  isMobile?: boolean;
 };
 
-export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, currentTime, user, onLogout }: TaskbarProps) {
+export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, currentTime, user, onLogout, isMobile }: TaskbarProps) {
   const timeStr = currentTime.toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit", hour12: false });
   const dateStr = currentTime.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }).toUpperCase();
+  const minimized = windows.filter((w) => w.minimized);
 
-  return (
-    <div className="fixed bottom-0 left-0 right-0 z-[200] flex items-center justify-between border-t border-[var(--border)] bg-[var(--bg)]/90 px-4 py-2 backdrop-blur-md">
-      <div className="flex items-center gap-3">
+  if (isMobile) {
+    return (
+      <div className="fixed bottom-0 left-0 right-0 z-[200] flex items-center justify-between border-t border-[var(--border)] bg-[var(--bg)]/95 px-4 py-2 backdrop-blur-md">
         <button
           onClick={onOpenLauncher}
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--surface-2)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--surface-3)]"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--surface-2)] ring-1 ring-[var(--border)] transition-colors active:scale-95"
         >
-          <span className="text-[16px]">◩</span>
+          <span className="text-[18px]">◩</span>
         </button>
-        <div className="flex items-center gap-1">
-          {windows.filter((w) => w.minimized).map((win) => (
+
+        <div className="flex items-center gap-1.5">
+          {windows.slice(0, 5).map((win) => (
             <button
               key={win.id}
               onClick={() => onRestore(win.id)}
-              className={`rounded-md px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] transition-colors ${
+              className={`h-2.5 w-2.5 rounded-full transition-colors ${
+                activeWindow === win.id ? "bg-[var(--danger)]" : "bg-[var(--surface-3)]"
+              }`}
+              aria-label={win.type}
+            />
+          ))}
+        </div>
+
+        <div className="text-right">
+          <DotText value={timeStr} className="text-[13px] leading-none tracking-[0.02em]" />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-[200] flex items-center justify-between border-t border-[var(--border)] bg-[var(--bg)]/90 px-4 py-2 backdrop-blur-md">
+      <div className="flex items-center gap-3 min-w-0">
+        <button
+          onClick={onOpenLauncher}
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--surface-2)] ring-1 ring-[var(--border)] transition-colors hover:bg-[var(--surface-3)]"
+        >
+          <span className="text-[16px]">◩</span>
+        </button>
+        <div className="flex items-center gap-1 overflow-x-auto">
+          {minimized.map((win) => (
+            <button
+              key={win.id}
+              onClick={() => onRestore(win.id)}
+              className={`shrink-0 rounded-md px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] transition-colors ${
                 activeWindow === win.id ? "bg-[var(--surface-3)] text-[var(--text)]" : "text-[var(--text-muted)] hover:bg-[var(--surface-2)]"
               }`}
             >
@@ -40,7 +72,7 @@ export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, curr
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 shrink-0">
         <div className="flex items-center gap-2 text-[var(--text-muted)]">
           <Wifi className="h-4 w-4" strokeWidth={1.5} />
           <Volume2 className="h-4 w-4" strokeWidth={1.5} />

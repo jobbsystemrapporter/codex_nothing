@@ -27,10 +27,10 @@ export function WeatherMatrixCard({
   const dotOff = light ? "rgba(17,17,17,0.14)" : "rgba(255,255,255,0.08)";
 
   return (
-    <Tile light={light} className="flex min-h-[260px] flex-col justify-between p-5">
+    <Tile light={light} className="flex min-h-[180px] flex-col justify-between p-5">
       <div className="flex items-center justify-between">
         <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>{city}</Label>
-        <DotText value={temp} className="text-[56px] leading-none tracking-[-0.04em]" />
+        <DotText value={temp} className="text-[32px] min-[430px]:text-[44px] md:text-[56px] leading-none tracking-[-0.04em]" />
       </div>
 
       <div className="grid justify-start gap-1.5">

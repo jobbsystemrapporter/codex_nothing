@@ -25,7 +25,7 @@ export function BrightnessSliderCard({ light: explicitLight }: BrightnessSliderC
         )}
       </div>
       <div className="flex flex-col gap-3">
-        <DotText value={String(brightness)} className="text-[48px] leading-[1] tracking-[0.02em]" />
+        <DotText value={String(brightness)} className="text-[28px] min-[430px]:text-[36px] md:text-[48px] leading-[1] tracking-[0.02em]" />
         <div className="relative h-3 w-full rounded-full bg-[var(--surface)] ring-1 ring-[var(--border)]">
           <div
             className={clsx("absolute left-0 top-0 bottom-0 rounded-full transition-all", light ? "bg-[var(--card-light-text)]" : "bg-[var(--white)]")}

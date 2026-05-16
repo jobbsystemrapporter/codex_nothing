@@ -28,7 +28,7 @@ export function DotBarTimeCard({ time, total, active }: DotBarTimeCardProps) {
       </div>
 
       <div className="mt-8 flex items-end gap-2">
-        <DotText value={time} className="text-[48px] leading-[0.92] tracking-[0.01em]" />
+        <DotText value={time} className="text-[28px] min-[430px]:text-[36px] md:text-[48px] leading-[0.92] tracking-[0.01em]" />
       </div>
       <Label className="mt-2">Total time</Label>
     </Tile>

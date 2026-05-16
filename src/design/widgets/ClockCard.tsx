@@ -33,7 +33,7 @@ export function ClockCard({
   const metaTone = light ? "text-[rgba(17,17,17,0.78)]" : "text-[var(--text-muted)]";
 
   return (
-    <Tile light={light} className="flex h-full min-h-[410px] flex-col justify-between p-6 md:min-h-[520px]">
+    <Tile light={light} className="flex h-full min-h-[260px] flex-col justify-between p-5 md:min-h-[520px] md:p-6">
       <div className={textTone}>
         <Label className={labelTone}>{label}</Label>
 

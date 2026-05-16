@@ -46,23 +46,36 @@ export function AppLauncher({ onOpen, onClose }: AppLauncherProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
+    const handlePointer = (e: PointerEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) onClose();
     };
-    setTimeout(() => document.addEventListener("mousedown", handleClick), 10);
-    return () => document.removeEventListener("mousedown", handleClick);
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    setTimeout(() => {
+      document.addEventListener("pointerdown", handlePointer);
+      document.addEventListener("keydown", handleKey);
+    }, 10);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointer);
+      document.removeEventListener("keydown", handleKey);
+    };
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div ref={ref} className="nothing-card w-full max-w-[640px] p-6">
+    <div className="fixed inset-0 z-[300] flex items-end justify-center bg-black/40 backdrop-blur-sm sm:items-center">
+      <div
+        ref={ref}
+        className="nothing-card w-full max-w-[640px] max-h-[85dvh] overflow-y-auto rounded-t-[24px] sm:rounded-[var(--radius-lg)] p-6"
+      >
+        <div className="mx-auto mb-6 h-1 w-10 rounded-full bg-[var(--text-muted)]/30 sm:hidden" />
         <h2 className="mb-6 text-[22px] font-light tracking-[-0.02em]">Applications</h2>
         <div className="grid grid-cols-4 gap-3 sm:grid-cols-5">
           {apps.map((app) => (
             <button
               key={app.type}
               onClick={() => onOpen(app.type)}
-              className="flex flex-col items-center gap-2 rounded-[16px] p-3 transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+              className="flex flex-col items-center gap-2 rounded-[16px] p-3 transition-colors hover:bg-[rgba(255,255,255,0.06)] active:scale-95"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-[var(--surface)] ring-1 ring-[var(--border)] text-[var(--text-muted)]">
                 {app.icon}

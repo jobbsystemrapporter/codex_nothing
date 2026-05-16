@@ -28,7 +28,7 @@ export function ScheduleCalendarCard({
   const mutedTone = light ? "text-[rgba(17,17,17,0.62)]" : "text-[var(--text-muted)]";
 
   return (
-    <Tile light={light} className="min-h-[320px] p-5 md:p-6">
+    <Tile light={light} className="min-h-[200px] p-5 md:p-6">
       <div className="grid gap-6 md:grid-cols-[1.2fr_1fr]">
         <div className="space-y-6">
           {meetings.map((item) => (

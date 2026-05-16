@@ -43,7 +43,7 @@ export function VolumeSliderCard({ light: explicitLight }: VolumeSliderCardProps
           />
         </div>
         <div className="flex flex-1 flex-col items-center justify-center gap-2">
-          <DotText value={String(volume)} className="text-[48px] leading-[1] tracking-[0.02em]" />
+          <DotText value={String(volume)} className="text-[28px] min-[430px]:text-[36px] md:text-[48px] leading-[1] tracking-[0.02em]" />
           <span className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-muted)]">%</span>
         </div>
       </div>

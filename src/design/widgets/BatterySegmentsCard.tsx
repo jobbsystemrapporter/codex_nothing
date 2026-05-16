@@ -27,7 +27,7 @@ export function BatterySegmentsCard({
       <div className="mt-4 flex items-end gap-2">
         <DotText
           value={value}
-          className={`text-[54px] leading-[0.9] tracking-[0.02em] ${light ? "text-[var(--card-light-text)]" : ""}`}
+          className={`text-[32px] min-[430px]:text-[44px] md:text-[54px] leading-[0.9] tracking-[0.02em] ${light ? "text-[var(--card-light-text)]" : ""}`}
         />
         <span className={`pb-2 text-[16px] tracking-[0.1em] ${muted}`}>%</span>
       </div>

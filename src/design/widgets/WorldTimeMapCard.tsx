@@ -31,7 +31,7 @@ export function WorldTimeMapCard({ items }: WorldTimeMapCardProps) {
   const dotOn = light ? "rgba(17,17,17,0.52)" : "rgba(255,255,255,0.52)";
   const dotOff = light ? "rgba(17,17,17,0.08)" : "rgba(255,255,255,0.05)";
   return (
-    <Tile className="min-h-[270px] p-4 md:min-h-[300px]">
+    <Tile className="min-h-[200px] p-4 md:min-h-[300px]">
       <div className="grid gap-4 md:grid-cols-[180px_1fr]">
         <div className="grid gap-4">
           {items.map((item) => (
@@ -42,16 +42,16 @@ export function WorldTimeMapCard({ items }: WorldTimeMapCardProps) {
           ))}
         </div>
 
-        <div className="grid place-items-center">
-          <div className="inline-grid gap-1">
+        <div className="grid place-items-center overflow-x-auto">
+          <div className="inline-grid gap-0.5 sm:gap-1">
             {mapRows.map((row, rowIndex) => (
-              <div className="flex gap-1" key={rowIndex}>
+              <div className="flex gap-0.5 sm:gap-1" key={rowIndex}>
                 {row.split("").map((cell, cellIndex) => {
                   const key = `${cellIndex}-${rowIndex}`;
                   const hot = highlights.has(key);
                   return (
                     <span
-                      className="h-1.5 w-1.5 rounded-full"
+                      className="h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full"
                       key={key}
                       style={{
                         backgroundColor:

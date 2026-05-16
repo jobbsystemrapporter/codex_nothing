@@ -22,7 +22,7 @@ export function DayAgendaCard({ dayNumber, dayName, items, light: explicitLight 
   const bgColor = light ? "bg-[rgba(17,17,17,0.06)]" : "bg-[rgba(255,255,255,0.05)]";
 
   return (
-    <Tile light={light} className="min-h-[250px] p-4 md:min-h-[280px]">
+    <Tile light={light} className="min-h-[180px] p-4 md:min-h-[280px]">
       <div className="grid gap-4 md:grid-cols-[170px_1fr]">
         <div>
           <DotMatrixNumber light={light} size="lg" value={dayNumber} />

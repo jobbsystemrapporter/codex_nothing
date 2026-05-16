@@ -15,7 +15,7 @@ export function QuickNotesCard({ note, compact = false, light: explicitLight }: 
   const textColor = light ? "text-[rgba(17,17,17,0.8)]" : "text-[var(--white-soft)]";
 
   return (
-    <Tile light={light} className={`min-h-[220px] p-5 ${compact ? "md:min-h-[220px]" : "md:min-h-[260px]"}`}>
+    <Tile light={light} className={`min-h-[160px] p-5 ${compact ? "md:min-h-[160px]" : "md:min-h-[260px]"}`}>
       <div className="flex items-center justify-between gap-3">
         <DotText value="QUICK NOTES" className="text-[34px] tracking-[0.02em] leading-[0.95]" />
         <span className="text-[40px] leading-none text-[var(--danger)]">+</span>

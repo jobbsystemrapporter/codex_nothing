@@ -24,7 +24,7 @@ export function NetworkTrendCard({
     <Tile light={light} className="min-h-[180px] p-4">
       <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>NETWORK</Label>
       <div className="mt-4 flex items-end gap-2">
-        <DotText value={value} className="text-[52px] leading-[0.88] tracking-[-0.03em]" />
+        <DotText value={value} className="text-[30px] min-[430px]:text-[40px] md:text-[52px] leading-[0.88] tracking-[-0.03em]" />
         <p className={`pb-1 text-[18px] ${muted}`}>{unit}</p>
       </div>
 

@@ -20,7 +20,7 @@ export function ActivityPulseCard({
   const mutedTone = light ? "text-[rgba(17,17,17,0.62)]" : "text-[var(--text-muted)]";
 
   return (
-    <Tile light={light} className="min-h-[260px] overflow-hidden p-0">
+    <Tile light={light} className="min-h-[180px] overflow-hidden p-0">
       <div className="p-5">
         <div className="flex items-center justify-between gap-3">
           <Label className={light ? "text-[rgba(17,17,17,0.62)]" : ""}>{activity}</Label>
@@ -28,7 +28,7 @@ export function ActivityPulseCard({
         </div>
 
         <div className="mt-7 flex items-end gap-2">
-          <DotText value={steps} className="text-[64px] leading-[0.9] tracking-[-0.04em]" />
+          <DotText value={steps} className="text-[36px] min-[430px]:text-[48px] md:text-[64px] leading-[0.9] tracking-[-0.04em]" />
           <div className={`pb-2 text-[18px] leading-none tracking-[0.14em] ${mutedTone}`}>STEPS</div>
         </div>
       </div>

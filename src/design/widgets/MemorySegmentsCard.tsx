@@ -51,7 +51,7 @@ export function MemorySegmentsCard({
         ) : null}
       </div>
       <div className="mt-4 flex items-end gap-2">
-        <DotText value={value} className="text-[56px] leading-[0.88] tracking-[-0.03em]" />
+        <DotText value={value} className="text-[32px] min-[430px]:text-[44px] md:text-[56px] leading-[0.88] tracking-[-0.03em]" />
         <p className={`pb-1 text-[24px] leading-none ${muted}`}>{unit}</p>
       </div>
       <p className={`mt-1 text-[12px] uppercase tracking-[0.12em] ${muted}`}>
