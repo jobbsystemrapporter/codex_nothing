@@ -2,6 +2,7 @@ import { AuthProvider } from "./context/AuthProvider";
 import { useAuth } from "./hooks/useAuth";
 import { ThemeProvider } from "./design/context/ThemeContext";
 import { TimeProvider } from "./design/context/TimeContext";
+import { WidgetSettingsProvider } from "./context/WidgetSettingsContext";
 import { LoginScreen } from "./components/LoginScreen";
 import { Desktop } from "./components/Desktop";
 
@@ -27,7 +28,9 @@ function App() {
     <ThemeProvider>
       <TimeProvider>
         <AuthProvider>
-          <AppContent />
+          <WidgetSettingsProvider>
+            <AppContent />
+          </WidgetSettingsProvider>
         </AuthProvider>
       </TimeProvider>
     </ThemeProvider>

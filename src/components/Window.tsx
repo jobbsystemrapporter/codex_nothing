@@ -1,4 +1,5 @@
 import { useRef, useCallback, useState, useEffect } from "react";
+import { useWidgetSettings } from "../hooks/useWidgetSettings";
 import type { WidgetInstance } from "./types";
 
 type WindowProps = {
@@ -13,6 +14,7 @@ type WindowProps = {
 };
 
 export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdate, isMobile, children }: WindowProps) {
+  const { settings } = useWidgetSettings();
   const [dragging, setDragging] = useState(false);
   const [resizing, setResizing] = useState(false);
   const dragStart = useRef({ x: 0, y: 0, winX: 0, winY: 0 });
@@ -108,7 +110,11 @@ export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdat
     return (
       <div
         className="relative"
-        style={{ zIndex, minHeight: instance.h }}
+        style={{ zIndex, minHeight: instance.h, "--widget-opacity": settings.opacity } as React.CSSProperties}
+        data-widget-opacity=""
+        data-widget-border={String(settings.showBorder)}
+        data-widget-shadow={String(settings.showShadow)}
+        data-widget-glass={String(settings.glassEffect)}
         onClick={onFocus}
       >
         {/* Floating close button — small, semi-transparent, sits in corner */}
@@ -133,7 +139,12 @@ export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdat
         height: instance.h,
         zIndex,
         cursor: dragging ? "grabbing" : "default",
-      }}
+        "--widget-opacity": settings.opacity,
+      } as React.CSSProperties}
+      data-widget-opacity=""
+      data-widget-border={String(settings.showBorder)}
+      data-widget-shadow={String(settings.showShadow)}
+      data-widget-glass={String(settings.glassEffect)}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
     >

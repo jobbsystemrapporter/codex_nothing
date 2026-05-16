@@ -7,6 +7,7 @@ import { Taskbar } from "./Taskbar";
 import { Window } from "./Window";
 import { AppLauncher } from "./AppLauncher";
 import { WidgetRegistry } from "./WidgetRegistry";
+import { WidgetSettingsPanel } from "./WidgetSettingsPanel";
 import type { WidgetInstance } from "./types";
 
 const TASKBAR_HEIGHT = 52;
@@ -94,6 +95,7 @@ export function Desktop() {
   );
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
   const [showLauncher, setShowLauncher] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const desktopRef = useRef<HTMLDivElement>(null);
 
@@ -191,6 +193,15 @@ export function Desktop() {
               </div>
               <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Apps</span>
             </button>
+            <button
+              onClick={() => setShowSettings(true)}
+              className="flex flex-col items-center gap-2 rounded-[18px] p-3 transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-[var(--surface-2)] ring-1 ring-[var(--border)]">
+                <span className="text-[18px]">⚙</span>
+              </div>
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Settings</span>
+            </button>
           </div>
 
           {/* Windows */}
@@ -230,6 +241,11 @@ export function Desktop() {
           onOpen={openWindow}
           onClose={() => setShowLauncher(false)}
         />
+      )}
+
+      {/* Widget Settings */}
+      {showSettings && (
+        <WidgetSettingsPanel onClose={() => setShowSettings(false)} />
       )}
     </div>
   );

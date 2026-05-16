@@ -118,6 +118,31 @@ body {
   box-shadow: none !important;
 }
 
+/* Widget appearance settings overrides */
+[data-widget-opacity] .nothing-card {
+  background: color-mix(in srgb, var(--surface-2) calc(var(--widget-opacity) * 100%), transparent);
+}
+
+[data-widget-opacity] .nothing-card-light {
+  background: color-mix(in srgb, var(--card-light) calc(var(--widget-opacity) * 100%), transparent);
+}
+
+[data-widget-border="false"] .nothing-card,
+[data-widget-border="false"] .nothing-card-light {
+  border-color: transparent;
+}
+
+[data-widget-shadow="false"] .nothing-card,
+[data-widget-shadow="false"] .nothing-card-light {
+  box-shadow: none;
+}
+
+[data-widget-glass="true"] .nothing-card,
+[data-widget-glass="true"] .nothing-card-light {
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+}
+
 .nothing-eq-bar {
   animation: nothingEqPulse 1180ms ease-in-out infinite;
   animation-delay: var(--eq-delay, 0ms);
