@@ -33,7 +33,7 @@ export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, curr
           <span className="text-[18px]">◩</span>
         </button>
 
-        <div className="flex items-center gap-1.5 overflow-x-auto">
+        <div className="flex min-w-0 flex-1 items-center justify-center gap-1.5 overflow-x-auto px-2 scrollbar-hide">
           {recentWindows.map((win) => (
             <button
               key={win.id}

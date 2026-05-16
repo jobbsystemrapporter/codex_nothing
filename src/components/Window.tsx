@@ -31,6 +31,7 @@ export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdat
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest(".win-resize")) return;
+    if ((e.target as HTMLElement).closest("button, input, textarea, select, a, [role='button'], label")) return;
     onFocus();
     setDragging(true);
     dragStart.current = { x: e.clientX, y: e.clientY, winX: instance.x, winY: instance.y };
@@ -44,6 +45,7 @@ export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdat
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if ((e.target as HTMLElement).closest(".win-resize")) return;
+    if ((e.target as HTMLElement).closest("button, input, textarea, select, a, [role='button'], label")) return;
     const touch = e.touches[0];
     onFocus();
     setDragging(true);
@@ -101,43 +103,29 @@ export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdat
     };
   }, [dragging, resizing, instance.x, instance.y, instance.w, instance.h, onUpdate, clampToViewport]);
 
-  // Mobile: clean container without double card effect
+  // Mobile: just the widget card — no title bar, no outer shell
   if (isMobile) {
     return (
       <div
-        className="flex flex-col overflow-hidden"
-        style={{ zIndex }}
+        className="relative"
+        style={{ zIndex, minHeight: instance.h }}
         onClick={onFocus}
       >
-        <div className="flex items-center justify-between px-1 py-2 select-none">
-          <span className="text-[10px] uppercase tracking-[0.12em] text-[var(--text-muted)]">
-            {instance.type.replace(/([A-Z])/g, " $1").trim()}
-          </span>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={(e) => { e.stopPropagation(); onMinimize(); }}
-              className="flex h-6 w-6 items-center justify-center rounded-full text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-3)] hover:text-[var(--text)]"
-            >
-              −
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); onClose(); }}
-              className="flex h-6 w-6 items-center justify-center rounded-full text-[var(--text-muted)] transition-colors hover:bg-[var(--danger)] hover:text-white"
-            >
-              ×
-            </button>
-          </div>
-        </div>
-        <div className="flex-1 overflow-auto min-h-0">
-          {children}
-        </div>
+        {/* Floating close button */}
+        <button
+          onClick={(e) => { e.stopPropagation(); onClose(); }}
+          className="absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--surface-2)]/80 text-[13px] text-[var(--text-muted)] ring-1 ring-[var(--border)] backdrop-blur-sm transition-colors active:bg-[var(--danger)] active:text-white"
+        >
+          ×
+        </button>
+        {children}
       </div>
     );
   }
 
   return (
     <div
-      className="absolute flex flex-col overflow-hidden rounded-[var(--radius-lg)] bg-[var(--surface-2)] ring-1 ring-[var(--border)] shadow-[0_18px_36px_rgba(0,0,0,0.38)]"
+      className="absolute"
       style={{
         left: instance.x,
         top: instance.y,
@@ -149,29 +137,34 @@ export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdat
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
     >
-      <div className="flex items-center justify-between px-4 py-3 select-none">
-        <span className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-muted)]">
-          {instance.type.replace(/([A-Z])/g, " $1").trim()}
-        </span>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={(e) => { e.stopPropagation(); onMinimize(); }}
-            className="flex h-6 w-6 items-center justify-center rounded-full text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-3)] hover:text-[var(--text)]"
-          >
-            −
-          </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); onClose(); }}
-            className="flex h-6 w-6 items-center justify-center rounded-full text-[var(--text-muted)] transition-colors hover:bg-[var(--danger)] hover:text-white"
-          >
-            ×
-          </button>
-        </div>
+      {/* Floating controls — no outer shell, just buttons over the widget */}
+      <div className="absolute right-2 top-2 z-10 flex items-center gap-1">
+        <button
+          onClick={(e) => { e.stopPropagation(); onMinimize(); }}
+          className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--surface-2)]/70 text-[11px] text-[var(--text-muted)] ring-1 ring-[var(--border)] backdrop-blur-sm transition-colors hover:bg-[var(--surface-3)] hover:text-[var(--text)]"
+        >
+          −
+        </button>
+        <button
+          onClick={(e) => { e.stopPropagation(); onClose(); }}
+          className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--surface-2)]/70 text-[11px] text-[var(--text-muted)] ring-1 ring-[var(--border)] backdrop-blur-sm transition-colors hover:bg-[var(--danger)] hover:text-white"
+        >
+          ×
+        </button>
       </div>
-      <div className="flex-1 overflow-auto px-4 pb-4 min-h-0">
+
+      {/* Widget fills entire allocated area */}
+      <div className="h-full w-full">
         {children}
       </div>
-      <div className="win-resize absolute bottom-0 right-0 h-4 w-4 cursor-se-resize" onMouseDown={handleResizeDown} onTouchStart={handleResizeTouchStart} />
+
+      {/* Subtle resize handle */}
+      <div className="win-resize absolute bottom-1 right-1 flex h-4 w-4 cursor-se-resize items-end justify-end" onMouseDown={handleResizeDown} onTouchStart={handleResizeTouchStart}>
+        <svg width="10" height="10" viewBox="0 0 10 10" className="pointer-events-none text-[var(--text-muted)] opacity-30">
+          <path d="M6 10L10 10L10 6" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+          <path d="M2 10L10 10L10 2" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+        </svg>
+      </div>
     </div>
   );
 }

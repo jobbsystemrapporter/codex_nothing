@@ -71,30 +71,21 @@ function clampWindow(win: WidgetInstance, vw: number, vh: number): WidgetInstanc
   };
 }
 
-function getAppInitial(type: string): string {
-  return type.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ")[0]?.[0] ?? "?";
-}
-
-function getAppShortName(type: string): string {
-  return type
-    .replace(/([A-Z])/g, " $1")
-    .replace(/Card|Widget/g, "")
-    .trim()
-    .split(" ")
-    .slice(0, 2)
-    .join(" ");
-}
-
 export function Desktop() {
   const { user, logout } = useAuth();
   const { mode } = useTheme();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const viewport = useViewportSize();
-  const [windows, setWindows] = useState<WidgetInstance[]>(() =>
-    createDefaultWindows(viewport.width, viewport.height).map((w) =>
+  const [windows, setWindows] = useState<WidgetInstance[]>(() => {
+    const initial = createDefaultWindows(viewport.width, viewport.height).map((w) =>
       clampWindow(w, viewport.width, viewport.height)
-    )
-  );
+    );
+    // Mobile: only show the first default window; minimize the rest
+    if (viewport.width <= 768) {
+      return initial.map((w, i) => ({ ...w, minimized: i !== 0 }));
+    }
+    return initial;
+  });
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
   const [showLauncher, setShowLauncher] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -154,7 +145,6 @@ export function Desktop() {
   const bringToFront = (id: string) => setActiveWindow(id);
 
   const visibleWindows = windows.filter((w) => !w.minimized);
-  const minimizedWindows = windows.filter((w) => w.minimized);
 
   return (
     <div
@@ -163,8 +153,8 @@ export function Desktop() {
     >
       {/* Desktop / Mobile Content */}
       {isMobile ? (
-        // Mobile: stacked cards
-        <div className="flex h-full flex-col gap-3 overflow-y-auto px-3 pt-3 pb-28">
+        // Mobile: only visible windows as stacked cards; minimized apps live in taskbar
+        <div className="h-full overflow-y-auto px-3 pt-3 pb-28 space-y-3">
           {visibleWindows.map((win, index) => (
             <Window
               key={win.id}
@@ -180,25 +170,6 @@ export function Desktop() {
             >
               <WidgetRegistry type={win.type} />
             </Window>
-          ))}
-          {minimizedWindows.map((win) => (
-            <button
-              key={win.id}
-              onClick={() => restoreWindow(win.id)}
-              className="flex items-center gap-3 rounded-[var(--radius-lg)] bg-[var(--surface-2)] px-4 py-4 ring-1 ring-[var(--border)] active:scale-[0.98] transition-transform"
-            >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--surface)] text-[15px] font-bold uppercase text-[var(--text)] ring-1 ring-[var(--border)]">
-                {getAppInitial(win.type)}
-              </div>
-              <div className="flex flex-col items-start">
-                <span className="text-[15px] font-medium tracking-[0.02em] text-[var(--text)]">
-                  {getAppShortName(win.type)}
-                </span>
-                <span className="text-[12px] tracking-[0.08em] text-[var(--text-muted)]">
-                  Tap to open
-                </span>
-              </div>
-            </button>
           ))}
         </div>
       ) : (
