@@ -1,0 +1,41 @@
+# Nothing OS Design System — Cursor Rules
+
+## Project Overview
+- React + TypeScript + Vite + Tailwind CSS v4.2.2
+- Nothing-inspired design: black/white/red only, Doto font for metrics
+- 52 widgets in `src/design/widgets/`
+- Desktop = floating windows / Mobile = stacked cards
+
+## Coding Rules
+- Use Tailwind container queries (`@min-[300px]:`) NOT screen queries (`md:`)
+- Widget codes follow format: `ABCDE-000`
+- Keep layout, primitives, and widget logic separated
+- Reuse tokens from `src/design/tokens/` and primitives from `src/design/primitives/`
+- Never use gradients or decorative shadows unless requested
+- Black/white first; red only for status/alert/active emphasis
+
+## Widget Development
+- All new widgets must use `Tile` primitive with `nothing-card` class
+- Base font size for metrics: 24-32px, scale with `@min-[300px]` / `@min-[360px]`
+- Widgets must be responsive to their container width, not viewport
+- Add new widgets to `src/pages/NothingPlaygroundPage.tsx`
+- Register widgets in `src/components/WidgetRegistry.tsx`
+
+## File Structure
+```
+src/design/tokens/      — CSS variables
+src/design/primitives/  — Tile, Label, DotText, etc.
+src/design/widgets/     — 52 widget components
+src/components/         — Desktop, Window, Taskbar, AppLauncher
+src/context/            — AuthProvider, WidgetSettingsContext
+```
+
+## Tech Stack
+- React 19, TypeScript strict
+- Tailwind v4 with `@tailwindcss/vite` plugin
+- Lucide icons only
+- No external UI libraries
+
+## Verification
+- Run `npm run lint` and `npm run build` before committing
+- Keep desktop and mobile behavior stable

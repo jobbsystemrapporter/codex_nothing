@@ -5,9 +5,27 @@ import { TimeProvider } from "./design/context/TimeContext";
 import { WidgetSettingsProvider } from "./context/WidgetSettingsContext";
 import { LoginScreen } from "./components/LoginScreen";
 import { Desktop } from "./components/Desktop";
+import { WidgetRegistry } from "./components/WidgetRegistry";
+
+function WidgetStandalone({ type }: { type: string }) {
+  return (
+    <div className="flex h-screen w-screen items-center justify-center nothing-grid-bg p-6">
+      <div className="w-full max-w-[420px]">
+        <WidgetRegistry type={type} />
+      </div>
+    </div>
+  );
+}
 
 function AppContent() {
   const { user, loading } = useAuth();
+  const params = new URLSearchParams(window.location.search);
+  const widgetType = params.get("widget");
+
+  // Standalone widget mode — used by Übersicht and external embeds
+  if (widgetType) {
+    return <WidgetStandalone type={widgetType} />;
+  }
 
   if (loading) {
     return (
