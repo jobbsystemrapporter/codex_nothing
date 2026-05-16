@@ -118,10 +118,13 @@ Run any of the 52 widgets directly on your macOS desktop:
 # 1. Install Übersicht
 brew install --cask ubersicht
 
-# 2. Copy widgets
+# 2. Go to your project folder (where you cloned the repo)
+cd ~/Desktop/codex-nothing   # adjust path to where your repo lives
+
+# 3. Copy widgets
 cp -r ubersicht/widgets/* ~/Library/Application\ Support/Übersicht/widgets/
 
-# 3. Done — widgets appear on your desktop
+# 4. Done — widgets appear on your desktop
 ```
 
 Each Übersicht widget loads the standalone web widget via iframe. No build step needed.

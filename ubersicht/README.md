@@ -5,8 +5,15 @@ Desktop widgets for macOS using [Übersicht](http://tracesof.net/uebersicht/).
 ## Installation
 
 1. Install Übersicht: `brew install --cask ubersicht` or download from http://tracesof.net/uebersicht/
-2. Copy widget folders to `~/Library/Application Support/Übersicht/widgets/`
-3. Each widget auto-loads from the web app — no build step needed
+2. Go to your project folder where you cloned this repo:
+   ```bash
+   cd ~/Desktop/codex-nothing   # adjust to your actual repo path
+   ```
+3. Copy widget folders to Übersicht:
+   ```bash
+   cp -r ubersicht/widgets/* ~/Library/Application\ Support/Übersicht/widgets/
+   ```
+4. Each widget auto-loads from the web app — no build step needed
 
 ## Widget List
 
