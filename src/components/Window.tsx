@@ -42,7 +42,6 @@ export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdat
     resizeStart.current = { x: e.clientX, y: e.clientY, w: instance.w, h: instance.h };
   }, [instance.w, instance.h]);
 
-  // Touch handlers
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if ((e.target as HTMLElement).closest(".win-resize")) return;
     const touch = e.touches[0];
@@ -102,16 +101,16 @@ export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdat
     };
   }, [dragging, resizing, instance.x, instance.y, instance.w, instance.h, onUpdate, clampToViewport]);
 
-  // Mobile card mode
+  // Mobile: clean container without double card effect
   if (isMobile) {
     return (
       <div
-        className="flex flex-col overflow-hidden rounded-[var(--radius-lg)] bg-[var(--surface-2)] ring-1 ring-[var(--border)] shadow-[0_8px_24px_rgba(0,0,0,0.24)]"
+        className="flex flex-col overflow-hidden"
         style={{ zIndex }}
         onClick={onFocus}
       >
-        <div className="flex items-center justify-between px-4 py-3 select-none">
-          <span className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-muted)]">
+        <div className="flex items-center justify-between px-1 py-2 select-none">
+          <span className="text-[10px] uppercase tracking-[0.12em] text-[var(--text-muted)]">
             {instance.type.replace(/([A-Z])/g, " $1").trim()}
           </span>
           <div className="flex items-center gap-2">
@@ -129,7 +128,7 @@ export function Window({ instance, zIndex, onClose, onMinimize, onFocus, onUpdat
             </button>
           </div>
         </div>
-        <div className="flex-1 overflow-auto px-4 pb-4">
+        <div className="flex-1 overflow-auto min-h-0">
           {children}
         </div>
       </div>

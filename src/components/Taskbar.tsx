@@ -23,21 +23,22 @@ export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, curr
   const minimized = windows.filter((w) => w.minimized);
 
   if (isMobile) {
+    const recentWindows = windows.slice(-4);
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-[200] flex items-center justify-between border-t border-[var(--border)] bg-[var(--bg)]/95 px-4 py-2.5 backdrop-blur-md">
+      <div className="fixed bottom-0 left-0 right-0 z-[200] flex items-center justify-between border-t border-[var(--border)] bg-[var(--bg)]/95 px-3 py-2 backdrop-blur-md">
         <button
           onClick={onOpenLauncher}
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--surface-2)] ring-1 ring-[var(--border)] transition-colors active:scale-95"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--surface-2)] ring-1 ring-[var(--border)] transition-colors active:scale-95"
         >
-          <span className="text-[20px]">◩</span>
+          <span className="text-[18px]">◩</span>
         </button>
 
-        <div className="flex items-center gap-2">
-          {windows.slice(0, 6).map((win) => (
+        <div className="flex items-center gap-1.5 overflow-x-auto">
+          {recentWindows.map((win) => (
             <button
               key={win.id}
               onClick={() => onRestore(win.id)}
-              className={`flex h-8 w-8 items-center justify-center rounded-full text-[12px] font-bold uppercase transition-colors ${
+              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[11px] font-bold uppercase transition-colors ${
                 activeWindow === win.id
                   ? "bg-[var(--danger)] text-white"
                   : "bg-[var(--surface-2)] text-[var(--text-muted)] ring-1 ring-[var(--border)]"
@@ -49,8 +50,8 @@ export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, curr
           ))}
         </div>
 
-        <div className="text-right">
-          <DotText value={timeStr} className="text-[14px] leading-none tracking-[0.02em]" />
+        <div className="shrink-0 text-right">
+          <DotText value={timeStr} className="text-[13px] leading-none tracking-[0.02em]" />
         </div>
       </div>
     );
