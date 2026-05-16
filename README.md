@@ -1,8 +1,10 @@
-# Codex Nothing — Web OS
+# Codex Nothing — Web OS + AI Coding Environment
 
-> **Not a design library anymore.** A fully functional Nothing OS-inspired web operating system with 52 widgets, dual-mode window manager, auth, and macOS desktop widget support.
+> A fully functional Nothing OS-inspired web operating system with 52 widgets, dual-mode window manager, auth, and built-in AI coding assistant configurations.
 
 [![Deploy](https://github.com/jobbsystemrapporter/codex_nothing/actions/workflows/deploy-gh-pages.yml/badge.svg)](https://github.com/jobbsystemrapporter/codex_nothing/actions/workflows/deploy-gh-pages.yml)
+
+![Codex Nothing Desktop](docs/screenshots/screenshot.png)
 
 ---
 
@@ -17,7 +19,7 @@ A web-based operating system that runs in your browser. It features:
 - **Auth system** — login/register with offline demo mode (`demo` / `demo123`)
 - **Widget settings** — per-widget opacity, border, shadow, glass effect
 - **macOS desktop widgets** — via Übersicht (52 wrapper widgets included)
-- **AI-ready codebase** — configs for Cursor, Copilot, Claude, Windsurf
+- **AI-ready codebase** — configs for Cursor, Copilot, Claude, Windsurf, Kimi, and Codeium
 
 ---
 
@@ -35,19 +37,6 @@ https://jobbsystemrapporter.github.io/codex_nothing/?widget=ClockCard
 https://jobbsystemrapporter.github.io/codex_nothing/?widget=LiveWeatherAccentCard
 https://jobbsystemrapporter.github.io/codex_nothing/?widget=PomodoroCard
 ```
-
----
-
-## Screenshots
-
-### Desktop — Floating Widgets
-![Desktop](docs/screenshots/desktop-os.png)
-
-### Mobile — Stacked Cards
-![Mobile](docs/screenshots/mobile-os.png)
-
-### Widget Settings Panel
-![Settings](docs/screenshots/widget-settings.png)
 
 ---
 
