@@ -13,6 +13,10 @@ type TaskbarProps = {
   isMobile?: boolean;
 };
 
+function getAppInitial(type: string): string {
+  return type.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ")[0]?.[0] ?? "?";
+}
+
 export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, currentTime, user, onLogout, isMobile }: TaskbarProps) {
   const timeStr = currentTime.toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit", hour12: false });
   const dateStr = currentTime.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }).toUpperCase();
@@ -20,29 +24,33 @@ export function Taskbar({ windows, activeWindow, onRestore, onOpenLauncher, curr
 
   if (isMobile) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-[200] flex items-center justify-between border-t border-[var(--border)] bg-[var(--bg)]/95 px-4 py-2 backdrop-blur-md">
+      <div className="fixed bottom-0 left-0 right-0 z-[200] flex items-center justify-between border-t border-[var(--border)] bg-[var(--bg)]/95 px-4 py-2.5 backdrop-blur-md">
         <button
           onClick={onOpenLauncher}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--surface-2)] ring-1 ring-[var(--border)] transition-colors active:scale-95"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--surface-2)] ring-1 ring-[var(--border)] transition-colors active:scale-95"
         >
-          <span className="text-[18px]">◩</span>
+          <span className="text-[20px]">◩</span>
         </button>
 
-        <div className="flex items-center gap-1.5">
-          {windows.slice(0, 5).map((win) => (
+        <div className="flex items-center gap-2">
+          {windows.slice(0, 6).map((win) => (
             <button
               key={win.id}
               onClick={() => onRestore(win.id)}
-              className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                activeWindow === win.id ? "bg-[var(--danger)]" : "bg-[var(--surface-3)]"
+              className={`flex h-8 w-8 items-center justify-center rounded-full text-[12px] font-bold uppercase transition-colors ${
+                activeWindow === win.id
+                  ? "bg-[var(--danger)] text-white"
+                  : "bg-[var(--surface-2)] text-[var(--text-muted)] ring-1 ring-[var(--border)]"
               }`}
               aria-label={win.type}
-            />
+            >
+              {getAppInitial(win.type)}
+            </button>
           ))}
         </div>
 
         <div className="text-right">
-          <DotText value={timeStr} className="text-[13px] leading-none tracking-[0.02em]" />
+          <DotText value={timeStr} className="text-[14px] leading-none tracking-[0.02em]" />
         </div>
       </div>
     );

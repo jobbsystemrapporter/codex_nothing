@@ -31,6 +31,20 @@ function clampWindow(win: WidgetInstance, vw: number, vh: number): WidgetInstanc
   };
 }
 
+function getAppInitial(type: string): string {
+  return type.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ")[0]?.[0] ?? "?";
+}
+
+function getAppShortName(type: string): string {
+  return type
+    .replace(/([A-Z])/g, " $1")
+    .replace(/Card|Widget/g, "")
+    .trim()
+    .split(" ")
+    .slice(0, 2)
+    .join(" ");
+}
+
 export function Desktop() {
   const { user, logout } = useAuth();
   const { mode } = useTheme();
@@ -48,8 +62,6 @@ export function Desktop() {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
-
-  // Viewport clamping is handled per-window in the Window component and on open
 
   const openWindow = (type: string) => {
     if (isMobile) {
@@ -110,7 +122,7 @@ export function Desktop() {
       {/* Desktop / Mobile Content */}
       {isMobile ? (
         // Mobile: stacked cards
-        <div className="flex h-full flex-col gap-3 overflow-y-auto px-3 pt-3 pb-24">
+        <div className="flex h-full flex-col gap-3 overflow-y-auto px-3 pt-3 pb-28">
           {visibleWindows.map((win, index) => (
             <Window
               key={win.id}
@@ -131,12 +143,19 @@ export function Desktop() {
             <button
               key={win.id}
               onClick={() => restoreWindow(win.id)}
-              className="flex items-center justify-between rounded-[var(--radius-lg)] bg-[var(--surface-2)] px-4 py-3 ring-1 ring-[var(--border)]"
+              className="flex items-center gap-3 rounded-[var(--radius-lg)] bg-[var(--surface-2)] px-4 py-4 ring-1 ring-[var(--border)] active:scale-[0.98] transition-transform"
             >
-              <span className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-muted)]">
-                {win.type.replace(/([A-Z])/g, " $1").trim()}
-              </span>
-              <span className="text-[11px] text-[var(--text-muted)]">Tap to open</span>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--surface)] text-[15px] font-bold uppercase text-[var(--text)] ring-1 ring-[var(--border)]">
+                {getAppInitial(win.type)}
+              </div>
+              <div className="flex flex-col items-start">
+                <span className="text-[15px] font-medium tracking-[0.02em] text-[var(--text)]">
+                  {getAppShortName(win.type)}
+                </span>
+                <span className="text-[12px] tracking-[0.08em] text-[var(--text-muted)]">
+                  Tap to open
+                </span>
+              </div>
             </button>
           ))}
         </div>
