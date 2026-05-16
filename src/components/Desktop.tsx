@@ -9,25 +9,65 @@ import { AppLauncher } from "./AppLauncher";
 import { WidgetRegistry } from "./WidgetRegistry";
 import type { WidgetInstance } from "./types";
 
-const defaultWindows: WidgetInstance[] = [
-  { id: "clock-1", type: "ClockCard", x: 40, y: 40, w: 380, h: 520, minimized: false },
-  { id: "weather-1", type: "LiveWeatherAccentCard", x: 450, y: 40, w: 340, h: 280, minimized: false },
-  { id: "notes-1", type: "QuickNotesCard", x: 450, y: 350, w: 400, h: 260, minimized: false },
-  { id: "tasks-1", type: "ScheduleCalendarCard", x: 860, y: 40, w: 340, h: 400, minimized: false },
-  { id: "battery-1", type: "BatterySegmentsCard", x: 40, y: 580, w: 280, h: 200, minimized: false },
-  { id: "network-1", type: "NetworkTrendCard", x: 340, y: 580, w: 300, h: 200, minimized: false },
-  { id: "music-1", type: "NowPlayingEqualizerCard", x: 660, y: 580, w: 480, h: 240, minimized: false },
-];
+const TASKBAR_HEIGHT = 52;
+const MARGIN = 24;
+const GAP = 16;
+
+function createDefaultWindows(vw: number, vh: number): WidgetInstance[] {
+  const availableWidth = vw - MARGIN * 2;
+  const availableHeight = vh - MARGIN - TASKBAR_HEIGHT - 20;
+
+  // Use 3 columns on wide screens, 2 on medium, 1 on narrow
+  const cols = availableWidth >= 1200 ? 3 : availableWidth >= 800 ? 2 : 1;
+  const colWidth = Math.floor((availableWidth - (cols - 1) * GAP) / cols);
+
+  // Window size presets
+  const sizes: Record<string, { w: number; h: number }> = {
+    ClockCard: { w: colWidth, h: Math.min(420, Math.floor(availableHeight * 0.55)) },
+    LiveWeatherAccentCard: { w: colWidth, h: Math.min(260, Math.floor(availableHeight * 0.32)) },
+    QuickNotesCard: { w: colWidth, h: Math.min(220, Math.floor(availableHeight * 0.28)) },
+    ScheduleCalendarCard: { w: colWidth, h: Math.min(340, Math.floor(availableHeight * 0.42)) },
+    BatterySegmentsCard: { w: colWidth, h: Math.min(190, Math.floor(availableHeight * 0.25)) },
+    NetworkTrendCard: { w: colWidth, h: Math.min(190, Math.floor(availableHeight * 0.25)) },
+    NowPlayingEqualizerCard: { w: colWidth, h: Math.min(220, Math.floor(availableHeight * 0.28)) },
+  };
+
+  const windows: WidgetInstance[] = [
+    { id: "clock-1", type: "ClockCard", x: 0, y: 0, w: 0, h: 0, minimized: false },
+    { id: "weather-1", type: "LiveWeatherAccentCard", x: 0, y: 0, w: 0, h: 0, minimized: false },
+    { id: "notes-1", type: "QuickNotesCard", x: 0, y: 0, w: 0, h: 0, minimized: false },
+    { id: "tasks-1", type: "ScheduleCalendarCard", x: 0, y: 0, w: 0, h: 0, minimized: false },
+    { id: "battery-1", type: "BatterySegmentsCard", x: 0, y: 0, w: 0, h: 0, minimized: false },
+    { id: "network-1", type: "NetworkTrendCard", x: 0, y: 0, w: 0, h: 0, minimized: false },
+    { id: "music-1", type: "NowPlayingEqualizerCard", x: 0, y: 0, w: 0, h: 0, minimized: false },
+  ];
+
+  // Track column heights for masonry layout
+  const colHeights = Array(cols).fill(MARGIN);
+
+  windows.forEach((win) => {
+    const size = sizes[win.type] ?? { w: colWidth, h: 240 };
+    // Find shortest column
+    const colIndex = colHeights.indexOf(Math.min(...colHeights));
+    win.x = MARGIN + colIndex * (colWidth + GAP);
+    win.y = colHeights[colIndex];
+    win.w = size.w;
+    win.h = size.h;
+    colHeights[colIndex] += size.h + GAP;
+  });
+
+  return windows;
+}
 
 function clampWindow(win: WidgetInstance, vw: number, vh: number): WidgetInstance {
-  const w = Math.max(200, Math.min(win.w, vw));
-  const h = Math.max(150, Math.min(win.h, vh));
+  const w = Math.max(200, Math.min(win.w, vw - MARGIN * 2));
+  const h = Math.max(150, Math.min(win.h, vh - MARGIN - TASKBAR_HEIGHT));
   return {
     ...win,
     w,
     h,
-    x: Math.max(0, Math.min(win.x, vw - w)),
-    y: Math.max(0, Math.min(win.y, vh - h)),
+    x: Math.max(MARGIN, Math.min(win.x, vw - w - MARGIN)),
+    y: Math.max(MARGIN, Math.min(win.y, vh - h - TASKBAR_HEIGHT - 10)),
   };
 }
 
@@ -51,7 +91,9 @@ export function Desktop() {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const viewport = useViewportSize();
   const [windows, setWindows] = useState<WidgetInstance[]>(() =>
-    defaultWindows.map((w) => clampWindow(w, viewport.width, viewport.height))
+    createDefaultWindows(viewport.width, viewport.height).map((w) =>
+      clampWindow(w, viewport.width, viewport.height)
+    )
   );
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
   const [showLauncher, setShowLauncher] = useState(false);
@@ -76,10 +118,10 @@ export function Desktop() {
     }
     const id = `${type}-${Date.now()}`;
     const count = windows.length;
-    const x = 60 + (count % 5) * 30;
-    const y = 60 + (count % 5) * 20;
+    const x = MARGIN + (count % 5) * 30;
+    const y = MARGIN + (count % 5) * 25;
     const newWin = clampWindow(
-      { id, type, x, y, w: 360, h: 280, minimized: false },
+      { id, type, x, y, w: 340, h: 240, minimized: false },
       viewport.width,
       viewport.height
     );
