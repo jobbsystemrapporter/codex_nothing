@@ -40,7 +40,7 @@ export function WidgetSettingsPanel({ onClose }: { onClose: () => void }) {
               <span className="text-[12px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Show Border</span>
               <button
                 onClick={() => update({ showBorder: !settings.showBorder })}
-                className={`relative h-6 w-10 rounded-full transition-colors ${
+                className={`relative !min-h-0 !min-w-0 h-6 w-10 rounded-full transition-colors ${
                   settings.showBorder ? "bg-[var(--danger)]" : "bg-[rgba(255,255,255,0.14)]"
                 }`}
               >
@@ -56,7 +56,7 @@ export function WidgetSettingsPanel({ onClose }: { onClose: () => void }) {
               <span className="text-[12px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Show Shadow</span>
               <button
                 onClick={() => update({ showShadow: !settings.showShadow })}
-                className={`relative h-6 w-10 rounded-full transition-colors ${
+                className={`relative !min-h-0 !min-w-0 h-6 w-10 rounded-full transition-colors ${
                   settings.showShadow ? "bg-[var(--danger)]" : "bg-[rgba(255,255,255,0.14)]"
                 }`}
               >
@@ -72,7 +72,7 @@ export function WidgetSettingsPanel({ onClose }: { onClose: () => void }) {
               <span className="text-[12px] uppercase tracking-[0.08em] text-[var(--text-muted)]">Glass Effect</span>
               <button
                 onClick={() => update({ glassEffect: !settings.glassEffect })}
-                className={`relative h-6 w-10 rounded-full transition-colors ${
+                className={`relative !min-h-0 !min-w-0 h-6 w-10 rounded-full transition-colors ${
                   settings.glassEffect ? "bg-[var(--danger)]" : "bg-[rgba(255,255,255,0.14)]"
                 }`}
               >
